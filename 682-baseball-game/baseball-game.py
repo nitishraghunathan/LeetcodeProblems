@@ -1,7 +1,6 @@
 class Solution:
     def calPoints(self, operations: List[str]) -> int:
         stack = []
-        remove = 0
         for operation in operations:
             if operation == '+':
                 addend_one = stack.pop() if stack else 0
@@ -18,7 +17,6 @@ class Solution:
             else:
                 stack.append(int(operation))
         sum_stack = 0
-        print(stack)
         while stack:
             sum_stack += stack.pop()
         return sum_stack
