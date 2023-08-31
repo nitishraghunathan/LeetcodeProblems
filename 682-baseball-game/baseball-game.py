@@ -1,22 +1,14 @@
-class Solution:
-    def calPoints(self, operations: List[str]) -> int:
+class Solution(object):
+    def calPoints(self, ops):
         stack = []
-        for operation in operations:
-            if operation == '+':
-                addend_one = stack.pop() if stack else 0
-                addend_two = stack.pop() if stack else 0
-                stack.append(addend_two)
-                stack.append(addend_one)
-                stack.append(addend_one+addend_two)
-            elif operation == 'D':
-                previous_double = stack.pop() if stack else 0 
-                stack.append(previous_double)
-                stack.append(previous_double*2)
-            elif operation == 'C':
+        for op in ops:
+            if op == '+':
+                stack.append(stack[-1] + stack[-2])
+            elif op == 'C':
                 stack.pop()
+            elif op == 'D':
+                stack.append(2 * stack[-1])
             else:
-                stack.append(int(operation))
-        sum_stack = 0
-        while stack:
-            sum_stack += stack.pop()
-        return sum_stack
+                stack.append(int(op))
+
+        return sum(stack)
