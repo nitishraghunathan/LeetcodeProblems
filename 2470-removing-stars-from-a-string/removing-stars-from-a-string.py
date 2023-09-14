@@ -1,14 +1,13 @@
 class Solution:
     def removeStars(self, s: str) -> str:
         """
-        1. Add all characters to the stack 
-        2. Whenever there is a star pop the character from stack 
-        3. return the string after popping the elements
-
+        1. Add all the characters to the stack 
+        2. Whenever there is a star, pop the character from the stack
+        3. Return the string after iterating over all star characters
         """
-        stack = []
+        stack =[]
         for star in s:
-            if star != '*':
+            if star!='*':
                 stack.append(star)
             else:
                 if stack:
