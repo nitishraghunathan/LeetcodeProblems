@@ -1,18 +1,15 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         """
-        every bracket would have a closure 
-        (', ')', '{', '}', '[' and ']'
-        if in the event 
-        we have 
-        (].Not valid 
-        if it is empty - valid 
-        if there is more closing  parenthesis or more empty parenthesis than equal it is not true
-        put all elements in the stack  if it is an opening bracket 
-        if it is a closing bracket pop it out from the stack and check the bracket matches 
+        1. Define a dictionary with matching bracket types 
+        2. Create a stack and all opening brackets 
+        3. Once we confront a  closing bracket, popnthe elemtn from the stack and check if the bracket matches 
+        4. If a match is not found return False
+        5. Continue till the string is complete 
+        6. Return if stack is empty to match rule 3 and 1
         """
+        bracket_dict= {')' : '(', ']' :'[', '}' : '{'}
         bracket_stack = []
-        bracket_dict = {')' : '(', '}' : '{', ']' : '['}
         for bracket in s:
             if bracket in bracket_dict:
                 compare_char = bracket_stack.pop() if bracket_stack else None
