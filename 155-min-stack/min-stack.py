@@ -1,28 +1,34 @@
 class MinStack:
-
+    """
+    instead of pushing a single elemtent, we can push an array of elements 
+    1st index would be the element and the second index would be the minimum element
+    """
     def __init__(self):
         self.stack = []
         
 
-    def push(self, x: int) -> None:
-        
-        # If the stack is empty, then the min value
-        # must just be the first value we add
+    def push(self, val: int) -> None:
         if not self.stack:
-            self.stack.append((x, x))
+            self.stack.append((val,val))
             return
-
         current_min = self.stack[-1][1]
-        self.stack.append((x, min(x, current_min)))
-        
-        
+        self.stack.append((val, min(val, current_min)))
+        return
+
     def pop(self) -> None:
         self.stack.pop()
-        
+        return
 
     def top(self) -> int:
         return self.stack[-1][0]
-        
 
     def getMin(self) -> int:
         return self.stack[-1][1]
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(val)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
