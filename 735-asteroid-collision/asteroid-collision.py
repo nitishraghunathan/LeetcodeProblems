@@ -1,5 +1,12 @@
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        """
+        1. If the asteroid is positive, it is moving towards right.
+        2. if the asteroid is negative, it is moving towards left.
+        3. We are going to use a stack to store all asteroids.
+        4. We will pop the stack elements if there is negative and postive asteroid else we continue adding elements to the stack.
+        5. When there is a collison, we take the greatest asteroid if the size is unequal else we assume the asteroids destroy themselves.
+        """
         stack = []
         for asteroid in asteroids:
             stack.append(asteroid)
@@ -9,25 +16,9 @@ class Solution:
                 abs_first = abs(first)
                 abs_second = abs(second)
                 if abs_first == abs_second:
-                    continue
+                    continue 
                 elif abs_first > abs_second:
                     stack.append(first)
                 else:
                     stack.append(second)
-            
         return stack
-
-# class Solution:
-#     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
-#         st=[]
-#         for n in asteroids:
-#             st.append(n)
-#             while len(st)>1 and ((st[-2]>0) and (st[-1]<0)):
-#                 m,n = st.pop(),st.pop()
-#                 if abs(m)!=abs(n):
-#                     if abs(m)>abs(n):
-#                         st.append(m)
-#                     else:
-#                         st.append(n)
-        
-#         return st
