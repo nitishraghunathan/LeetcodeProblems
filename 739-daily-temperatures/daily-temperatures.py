@@ -1,16 +1,10 @@
 class Solution:
-    def dailyTemperatures(self, T):
-        #initialize the result array with all '0's considering when there is no bigger temperature
-        ans = [0]*len(T) 
-        stack = []
-        
-        for i,v in enumerate(T):
-            #check whether current val is greater than the last appended stack value.  We will pop all the elements which is lesser than the current temp
-            while stack and stack[-1][1] < v:
-                index,value = stack.pop()
-                ans[index] = i - index # we are checking how many indices we have crossed since we last have a lesser temperature
-            #Remember since we are comparing all the stack elements before inserting,all the stack elements will have temperatures greater than the current value	
-            stack.append([i,v])      
-        
-        return ans
-        
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        result = [0]*len(temperatures)
+        stack =[]
+        for index, value in enumerate(temperatures):
+            while stack and stack[-1][1] < value:
+                ind, val = stack.pop()
+                result[ind] = index-ind 
+            stack.append([index,value])
+        return result
