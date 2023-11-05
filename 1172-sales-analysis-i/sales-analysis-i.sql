@@ -1,10 +1,7 @@
-WITH A AS
-(
-SELECT seller_id, DENSE_RANK() OVER (ORDER BY SUM(price) DESC) as rank
-FROM sales
-GROUP BY SELLER_id
+select seller_id from sales 
+group by seller_id 
+having sum(price) = (
+  select top 1 sum(price) as price from sales 
+  group by seller_id
+  order by price desc 
 )
-
-SELECT seller_id
-FROM A
-WHERE rank = 1
