@@ -3,23 +3,23 @@
 #     def haveSameCategory(self, a: int, b: int) -> bool:
 #         pass
 class Solution:
-    class UnionFind:
-        def __init__(self, n):
-            self.root = [i for i in range(n)]
-        def find(x):
-            if x == root[x]:
-                return x
-            root[x] = self.find(root[x])
-            return root[x]
+    # class UnionFind:
+    #     def __init__(self, n):
+    #         self.root = [i for i in range(n)]
+    #     def find(x):
+    #         if x == root[x]:
+    #             return x
+    #         root[x] = self.find(root[x])
+    #         return root[x]
         
-        def union(x, y):
-            RootX = self.find(x)
-            RootY = self.find(y)
-            if RootX != RootY:
-                self.root[RootX] = RootY
+    #     def union(x, y):
+    #         RootX = self.find(x)
+    #         RootY = self.find(y)
+    #         if RootX != RootY:
+    #             self.root[RootX] = RootY
         
-        def is_connected(x,y):
-            return self.root[x] == self.root[y]
+    #     def is_connected(x,y):
+    #         return self.root[x] == self.root[y]
              
     def numberOfCategories(self, n: int, categoryHandler: Optional['CategoryHandler']) -> int:
         root = [i for i in range(n)]
