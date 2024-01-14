@@ -18,8 +18,8 @@ class UnionFind:
             elif self.rank[RootY] > self.rank[RootX]:
                 self.root[RootX] = RootY
             else:
-                self.root[RootX] = RootY
-                self.rank[RootY] +=1
+                self.root[RootY] = RootX
+                self.rank[RootX] +=1
                             
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
