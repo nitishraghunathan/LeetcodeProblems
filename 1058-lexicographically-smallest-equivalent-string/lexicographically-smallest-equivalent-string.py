@@ -29,8 +29,6 @@ class Solution:
         for one, two in zip(s1, s2):
             uf.union(ord(one)-97, ord(two)-97)
         new_str = ''
-        print(uf.root)
         for characters in baseStr:
-            print(characters, "is", uf.root[ord(characters)-97], "are", chr(uf.root[ord(characters)-97] + 97))
             new_str += chr(uf.root[ord(characters)-97] + 97)
         return new_str
