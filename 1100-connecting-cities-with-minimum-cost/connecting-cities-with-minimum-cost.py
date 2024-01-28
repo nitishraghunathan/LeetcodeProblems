@@ -19,7 +19,6 @@ class Solution:
         visited.add(1)
         while result:
             array = heapq.heappop(result)
-            print(array)
             if array[1] not in visited:
                 visited.add(array[1])
                 total_cost += array[0]
