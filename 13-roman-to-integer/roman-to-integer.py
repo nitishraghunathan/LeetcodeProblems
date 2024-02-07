@@ -10,7 +10,7 @@ class Solution:
             'M': 1000,
         }
         total = 0
-        for i in range(len(nums)-1, -1, -1):
+        for i in range(len(nums)):
             if i < len(nums)-1 and ((nums[i] == 'I' \
             and nums[i+1] in {'V', 'X'}) \
             or (nums[i] == 'X' and nums[i+1] in {'L', 'C'}) \
