@@ -18,8 +18,9 @@ class Solution:
                 value = root.val
             if diff == min_value:
                 value = min(root.val, value)
+            if target > root.val:
+                return dfs(root.right, target)
             dfs(root.left, target)
-            dfs(root.right, target)
             return
         dfs(root, target)
         return value
