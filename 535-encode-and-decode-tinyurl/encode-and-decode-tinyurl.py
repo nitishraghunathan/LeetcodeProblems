@@ -4,7 +4,7 @@ class Codec:
     def encode(self, longUrl: str) -> str:
         """Encodes a URL to a shortened URL.
         """
-        value = 'https://' + str(hash(longUrl))
+        value = 'https://tinyurl/' + str(hash(longUrl))
         self.map_dict[value] = longUrl
         return value 
 
