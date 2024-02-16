@@ -4,6 +4,6 @@ class Solution:
         max_value = float('-inf')
         for i in range(len(heights)-1, -1, -1):
             if heights[i] > max_value:
-                result.insert(0,i)
+                result.append(i)
                 max_value = heights[i]
-        return result
+        return sorted(result)
