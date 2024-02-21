@@ -3,7 +3,6 @@ class Solution:
         result = firstList + secondList
         heapq.heapify(result)
         outcome = []
-        print(result)
         while len(result) > 1:
             a = heapq.heappop(result)
             b = heapq.heappop(result)
