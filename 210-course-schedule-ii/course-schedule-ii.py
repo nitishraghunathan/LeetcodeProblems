@@ -8,7 +8,6 @@ class Solution:
         for i in range(len(in_degree)):
             if in_degree[i] == 0:
                 queue.append(i)
-        print(in_degree)
         index = numCourses-1
         while queue:
             destination = queue.pop(0)
@@ -19,7 +18,6 @@ class Solution:
                     in_degree[prerequisites[i][1]] -=1
                     if in_degree[prerequisites[i][1]] == 0:
                         queue.append(prerequisites[i][1])
-        print(toopological_sort)
         if index!=-1:
             return []
         return toopological_sort
