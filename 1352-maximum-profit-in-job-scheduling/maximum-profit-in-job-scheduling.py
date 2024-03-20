@@ -6,26 +6,26 @@ class Solution:
         use recursion to choose and not choose interval
         when we choose the next interval the startime should b greater than the end time of the current interval
         """
-        intervals = sorted(zip(startTime, endTime, profit))
+        intervals = sorted(zip(startTime,endTime, profit))
         dp = [-1]*len(intervals)
-        def dfs(index, intervals, dp):
-            if index == len(intervals):
+        def dfs(intervals, dp, index):
+            if len(intervals) == index:
                 return 0
-            if dp[index]!=-1:
+            if dp[index] != -1:
                 return dp[index]
             def binary_search(left, right, array, end_time):
                 next_index = len(array)
-                while left <=right:
+                while left<=right:
                     mid = left + (right-left)//2
-                    if intervals[mid][0] < end_time:
-                        left = mid+1
+                    if array[mid][0] < end_time:
+                        left=mid+1
                     else:
-                        next_index = mid
                         right = mid-1
+                        next_index=mid
                 return next_index
             new_index = binary_search(0, len(intervals)-1, intervals, intervals[index][1])
-            result = max(dfs(index+1, intervals, dp), intervals[index][2] + dfs(new_index, intervals, dp))
+            result = max(dfs(intervals,dp, index+1), intervals[index][2]+ dfs(intervals, dp, new_index))
             dp[index] = result
             return dp[index]
-        return dfs(0, intervals,dp)
+        return dfs(intervals,dp,0)                    
         
