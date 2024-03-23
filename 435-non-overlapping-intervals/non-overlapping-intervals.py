@@ -6,10 +6,7 @@ class Solution:
         while len(intervals) > 1:
             first = heapq.heappop(intervals)
             second = heapq.heappop(intervals)
-            if first == second:
-                result.append(first)
-                heapq.heappush(intervals, second)
-            elif second[0] >= first[1]:
+            if second[0] >= first[1]:
                 heapq.heappush(intervals, second)
             else:
                 if second[1] > first[1]:
