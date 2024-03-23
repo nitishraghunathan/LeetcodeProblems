@@ -1,19 +1,15 @@
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        heapq.heapify(intervals)
-        result = []
-        while len(intervals) > 1:
-            first = heapq.heappop(intervals)
-            second = heapq.heappop(intervals)
-            if second[0] >= first[1]:
-                heapq.heappush(intervals, second)
+        intervals.sort(key = lambda x: x[1])
+        ans = 0
+        k = -inf
+        
+        for x, y in intervals:
+            if x >= k:
+                # Case 1
+                k = y
             else:
-                if second[1] > first[1]:
-                    result.append((second[0], second[1]))
-                    heapq.heappush(intervals, first)
-                else:
-                    result.append((first[0], first[1]))
-                    heapq.heappush(intervals, second)
-                    
-        return len(result)
-
+                # Case 2
+                ans += 1
+        
+        return ans
