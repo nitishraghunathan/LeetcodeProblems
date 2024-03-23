@@ -2,7 +2,6 @@ class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         heapq.heapify(intervals)
         result = []
-        original_length = len(intervals)
         while len(intervals) > 1:
             first = heapq.heappop(intervals)
             second = heapq.heappop(intervals)
