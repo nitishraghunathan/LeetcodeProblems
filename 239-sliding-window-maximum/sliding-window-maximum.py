@@ -8,19 +8,20 @@ class Solution:
         now check if the sliding window is intact, if yes add left most element in the queue 
         increase left pointer.
         """
-        left, right, end = 0,0, len(nums)
         queue = collections.deque()
         result = []
-        while right < end:
-            while queue and nums[queue[-1]] < nums[right]:
-                queue.pop() 
-            queue.append(right)
-            if left > queue[0]:
+        for i in range(k):
+            while queue and nums[queue[-1]] <= nums[i]:
+                queue.pop()
+            queue.append(i)
+        result.append(nums[queue[0]])
+        for i in range(k, len(nums)):
+            if queue and queue[0]+k == i:
                 queue.popleft()
-            if right + 1 >= k:
-                result.append(nums[queue[0]])
-                left+=1
-            right+=1
+            while queue and nums[queue[-1]] <= nums[i]:
+                queue.pop()
+            queue.append(i)
+            result.append(nums[queue[0]])
         return result
 
 
