@@ -16,10 +16,7 @@ class Solution:
                 if stack and stack[-1][0] == '(':
                     sum_value = 0
                     stack.pop()
-                    if stack:
-                        sum_value= index -stack[-1][1]
-                    else:
-                        sum_value =2
+                    sum_value= index -stack[-1][1]
                     max_value = max(max_value, sum_value)
                 else:
                     stack.append([value, index])
