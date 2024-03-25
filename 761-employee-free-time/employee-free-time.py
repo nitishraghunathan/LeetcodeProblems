@@ -13,14 +13,11 @@ class Solution:
         heapq.heapify(result)
         for sched in schedule:
             for interv in sched:
-                print(interv)
                 heapq.heappush(result, (interv.start, interv.end))
         free_interval = []
         while len(result) > 1:
             a= heapq.heappop(result)
             b= heapq.heappop(result)
-            print(a)
-            print(b)
             if b[0] <= a[1]:
                 heapq.heappush(result, (min(a[0], b[0]), max(a[1], b[1])))
             else:
