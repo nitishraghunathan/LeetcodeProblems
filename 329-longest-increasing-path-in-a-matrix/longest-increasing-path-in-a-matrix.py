@@ -9,12 +9,12 @@ class Solution:
                 return dp[i][j]
             
             temp, matrix[i][j] = matrix[i][j], -1
-            south = dfs(matrix, i+1,j, temp) +1
-            north = dfs(matrix, i-1,j, temp)+1
-            east = dfs(matrix, i,j+1, temp)+1
-            west = dfs(matrix, i,j-1, temp)+1
+            south = dfs(matrix, i+1,j, temp)
+            north = dfs(matrix, i-1,j, temp)
+            east = dfs(matrix, i,j+1, temp)
+            west = dfs(matrix, i,j-1, temp)
             matrix[i][j] = temp
-            dp[i][j] = max(north, max(south, max(east, west)))
+            dp[i][j] = 1 +max(north, max(south, max(east, west)))
             return dp[i][j]
         for i in range(len(matrix)):
             for j in range(len(matrix[i])):
