@@ -23,4 +23,4 @@ class Solution:
                     max_value = max(max_value, sum_value)
                 else:
                     stack.append([value, index])
-        return len(s) if not stack  else max_value
+        return max_value
