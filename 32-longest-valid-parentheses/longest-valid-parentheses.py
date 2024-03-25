@@ -14,10 +14,8 @@ class Solution:
                 stack.append([value,index])
             else:
                 if stack and stack[-1][0] == '(':
-                    sum_value = 0
                     stack.pop()
-                    sum_value= index -stack[-1][1]
-                    max_value = max(max_value, sum_value)
+                    max_value = max(max_value, index -stack[-1][1])
                 else:
                     stack.append([value, index])
         return max_value
