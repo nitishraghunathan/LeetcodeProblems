@@ -3,6 +3,7 @@ class Solution:
         """
         :type w: List[int]
         """
+        #Accumulate all the wieghts and find the index closest to the weight
         self.prefix_sums = []
         prefix_sum = 0
         for weight in w:
