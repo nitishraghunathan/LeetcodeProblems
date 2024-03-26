@@ -7,19 +7,14 @@ class Solution:
         1. compare all the intervals start time with the end time of peek element in the queue
         2. if end time start time is less than end time push it to the queue else pop it off
         """
-        counter = 0
-        temp = None
-        if not intervals:
-            return 0
-        intervals= sorted(intervals, key=lambda value:value[0])
-        free_rooms = []
-        heapq.heappush(free_rooms, intervals[0][1])
-        for i in intervals[1:]:
-            if free_rooms[0] <= i[0]:
-                heapq.heappop(free_rooms)
-            heapq.heappush(free_rooms, i[1])
-        return len(free_rooms)
-
+        intervals = sorted(intervals, key = lambda x:x[0])
+        results = []
+        heapq.heappush(results, intervals[0][1])
+        for i in range(1, len(intervals)):
+            if intervals[i][0] >= results[0]:
+                heapq.heappop(results)
+            heapq.heappush(results, intervals[i][1])
+        return len(results)
 
 
             
