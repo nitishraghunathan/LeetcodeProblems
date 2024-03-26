@@ -7,10 +7,6 @@ class Solution:
             if character not in map_dict:
                 map_dict[character] = 0
             map_dict[character] +=1
-            if not adjacent_character or character != adjacent_character:
-                adjacent_character = character
-            else:
-                adjacent_count +=1
         result= []
         heapq.heapify(result)
         for key, value in map_dict.items():
