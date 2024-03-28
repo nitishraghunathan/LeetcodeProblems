@@ -6,11 +6,11 @@ class Solution:
     
     def recursion(self, subset_list:List[List[int]], subset:List[int] , index:int, nums:List[int])-> List[List[int]]:
         if index == len(nums):
-            subset_list.append(subset.copy())
+            subset_list.append(list(subset))
             return subset_list
-        subset_list = self.recursion(subset_list,subset, index+1,nums)
-        copy = subset.copy()
-        copy.append(nums[index])
-        subset_list = self.recursion(subset_list, copy, index+1, nums)
+        subset.append(nums[index])
+        subset_list = self.recursion(subset_list, list(subset), index+1, nums)
+        subset.pop()
+        subset_list = self.recursion(subset_list,list(subset), index+1,nums)
         return subset_list
         
