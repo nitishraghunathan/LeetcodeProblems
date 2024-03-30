@@ -3,8 +3,8 @@ class Solution:
         """
         add all open brackets to reject stack if close bracket and reject stack's last element is open
         we pop the elements and add them push_stack.
-        else we add the close brakc to reject stack 
-        we push stack by index and create a new_string
+        else we add the close bracket to reject stack 
+        we add to push stack and then add indexes to a set and create a new_string add brackets if indexes are in a set
         """
         push_stack= []
         reject_stack = []
@@ -28,6 +28,3 @@ class Solution:
             else:
                 new_string +=c
         return new_string
-
-
-        return ''.join(result)
