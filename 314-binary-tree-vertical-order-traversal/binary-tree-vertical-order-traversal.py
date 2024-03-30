@@ -12,6 +12,8 @@ class Solution:
             return result
         queue = []
         queue.append((root,0))
+        new_queue = []
+        heapq.heapify(new_queue)
         while queue:
             size = len(queue)
             for i in range(size):
@@ -22,11 +24,9 @@ class Solution:
                     queue.append((node.right, index+1))
                 if index not in map_dict:
                     map_dict[index] = []
+                    heapq.heappush(new_queue, index)
                 map_dict[index].append(node.val)
-        new_queue = []
-        heapq.heapify(new_queue)
-        for key, value in map_dict.items():
-            heapq.heappush(new_queue, key)
+
         while new_queue:
             result.append(map_dict[heapq.heappop(new_queue)])
         return result
