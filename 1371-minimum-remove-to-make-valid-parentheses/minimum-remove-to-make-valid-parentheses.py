@@ -1,8 +1,10 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         """
-        add all brackets to the stack
-        push the element to the stack i fpopped push the right stack
+        add all open brackets to reject stack if close bracket and reject stack's last element is open
+        we pop the elements and add them push_stack.
+        else we add the close brakc to reject stack 
+        we push stack by index and create a new_string
         """
         push_stack= []
         reject_stack = []
@@ -15,7 +17,6 @@ class Solution:
                     push_stack.append([')', index])
                 else:
                     reject_stack.append([')', index])
-        push_stack = sorted(push_stack, key=lambda x:x[1])
         index_set = set()
         for numbers in push_stack:
             index_set.add(numbers[1])
