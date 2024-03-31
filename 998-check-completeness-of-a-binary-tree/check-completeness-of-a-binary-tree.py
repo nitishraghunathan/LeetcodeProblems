@@ -21,6 +21,6 @@ class Solution:
                 else:
                     if flag:
                         return False
-                queue.append(node.left)
-                queue.append(node.right)
+                    queue.append(node.left)
+                    queue.append(node.right)
         return True
