@@ -7,7 +7,7 @@ class Solution:
             current_char = s[i]
             if current_char.isdigit():
                 current_num = current_num*10 +int(s[i])
-            if current_char in {'-', '+', '*', '/'}:
+            elif current_char in {'-', '+', '*', '/'}:
                 if sign == '+':
                     current_result += current_num
                 if sign == '-':
