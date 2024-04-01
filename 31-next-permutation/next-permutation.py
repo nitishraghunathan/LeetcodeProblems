@@ -6,19 +6,19 @@ class Solution:
         2. I findex greater than -1 find the smallest right element greater than the left element
         3. swap them and then reverse the string
         """
-        j = len(nums)-2
-        while j > -1 and nums[j] >= nums[j+1]:
-            j-=1
-        if  j >-1:
-            i= len(nums)-1
-            while nums[j] >= nums[i]:
-                i-=1
-            nums[i], nums[j] = nums[j], nums[i]
-        left = j+1
-        right = len(nums)-1
-        while left <= right:
+        left = len(nums) -2
+        while left >-1 and nums[left] >=nums[left+1]:
+            left -=1
+        if left > -1:
+            right = len(nums)-1
+            while nums[left] >= nums[right]:
+                right-=1
             nums[left], nums[right] = nums[right], nums[left]
-            left+=1
-            right-=1
+        le = left +1
+        ri = len(nums)-1
+        while le <=ri:
+            nums[le], nums[ri] = nums[ri], nums[le]
+            le +=1
+            ri -=1
         return nums
         
