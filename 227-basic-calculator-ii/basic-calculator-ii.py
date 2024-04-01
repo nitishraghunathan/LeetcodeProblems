@@ -1,24 +1,24 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        result, current_result, current_num = 0,0,0
+        current_result, current_num, result = 0,0,0
         s += '+'
-        sign ='+'
+        sign = '+'
         for i in range(len(s)):
-            current_character = s[i]
-            if current_character.isdigit():
-                current_num = current_num*10 + int(s[i])
-            if current_character in {'+', '-', '/', '*'}:
+            current_char = s[i]
+            if current_char.isdigit():
+                current_num = current_num*10 +int(s[i])
+            if current_char in {'-', '+', '*', '/'}:
                 if sign == '+':
                     current_result += current_num
-                elif sign == '-':
+                if sign == '-':
                     current_result -= current_num
-                elif sign == '*':
+                if sign == '*':
                     current_result *= current_num
-                elif sign == '/':
+                if sign == '/':
                     current_result = int(current_result/current_num)
-                if current_character in {'+','-'}:
+                if current_char in {'+','-'}:
                     result += current_result
                     current_result = 0
-                sign = current_character
-                current_num = 0
+                sign = current_char
+                current_num=0
         return result
