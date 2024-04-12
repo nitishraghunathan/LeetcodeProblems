@@ -1,5 +1,14 @@
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        """
+        1. Add the beginword to the list if endword not in the list return 0
+        2. add all wild card combinations of everyword in the list with one letter matched as wild card
+        3. Start with beginWord and find all words at distance 1,
+            -creare the same wildcard match words validate the values i the dictionary 
+            a. if not visited add them to the queue and visited set 
+            b.else proceed with other words 
+        4. If we find the end word submit the step else return 0
+        """
         if endWord not in wordList:
             return 0
         wordList.append(beginWord)
