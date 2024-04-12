@@ -1,30 +1,27 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         columns = set()
-        positive_diagnols = set() 
-        negative_diagnols = set() 
-        board = [['.']*n for i in range(n)]
-        def backtracking(row:int, n:int, columns:set, positive_diagnols:set, negative_diagnols:set, board:list, result:list):
+        positive_diagnol = set()
+        negative_diagnol = set()
+        result = []
+        def backtracking(row):
+            nonlocal result
             if row == n:
-                new_list = [''.join(r) for r in board]
-                result.append(list(new_list))
+                result.append([''.join(r) for r in board])
                 return result
             for c in range(n):
-                if c in columns or row+c in positive_diagnols or row-c in negative_diagnols:
-                    continue 
-                columns.add(c)
-                positive_diagnols.add(row+c)
-                negative_diagnols.add(row-c)
-                board[row][c] = 'Q'
-                result=backtracking(row+1, n, columns, positive_diagnols, negative_diagnols, board, result)
-                board[row][c] = '.'
-                positive_diagnols.remove(row+c) 
-                negative_diagnols.remove(row-c)
-                columns.remove(c)
+                if c in columns or row+c in positive_diagnol or row-c in negative_diagnol:
+                    continue
+                else:
+                    board[row][c] = 'Q'
+                    columns.add(c)
+                    positive_diagnol.add(row+c)
+                    negative_diagnol.add(row-c) 
+                    result = backtracking(row+1)
+                    board[row][c] = '.'
+                    negative_diagnol.remove(row-c) 
+                    positive_diagnol.remove(row+c) 
+                    columns.remove(c)
             return result
-        return backtracking(0, n, columns, positive_diagnols, negative_diagnols, board, [])
-
-                
-
-
-        
+        board = [['.']*n for i in range(n)]
+        return backtracking(0)
