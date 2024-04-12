@@ -3,13 +3,13 @@ class Solution:
         if endWord not in wordList:
             return 0
         wordList.append(beginWord)
-        map_dict = {}
+        word_dict = {}
         for word in wordList:
             for i in range(len(word)):
-                new_word = word[:i] +'*' + word[i+1:]
-                if new_word not in map_dict:
-                    map_dict[new_word] = []
-                map_dict[new_word].append(word)
+                new_word = word[:i] + '*' + word[i+1:]
+                if new_word not in word_dict:
+                    word_dict[new_word] = []
+                word_dict[new_word].append(word)
         queue = []
         visited = set()
         queue.append(beginWord)
@@ -23,9 +23,10 @@ class Solution:
                     return counter
                 for i in range(len(word)):
                     new_word = word[:i] + '*' + word[i+1:]
-                    for distance_word in map_dict[new_word]:
-                        if distance_word not in visited:
-                            queue.append(distance_word)
-                            visited.add(distance_word)
+                    for iter_word in word_dict[new_word]:
+                        if iter_word not in visited:
+                            queue.append(iter_word)
+                            visited.add(iter_word)
             counter+=1
         return 0
+
