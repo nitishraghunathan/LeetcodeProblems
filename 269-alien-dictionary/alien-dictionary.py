@@ -1,36 +1,29 @@
 class Solution:
-    
     def alienOrder(self, words: List[str]) -> str:
-
-        # Step 0: Put all unique letters into the adj list.
-        reverse_adj_list = {c : [] for word in words for c in word}
-
-        # Step 1: Find all edges and put them in reverse_adj_list.
-        for first_word, second_word in zip(words, words[1:]):
-            for c, d in zip(first_word, second_word):
-                if c != d: 
-                    reverse_adj_list[d].append(c)
+        alien_dict = { alpha: set() for word in words for alpha in word}
+        for i in range(len(words)-1):
+            min_length = min(len(words[i]), len(words[i+1]))
+            if len(words[i]) > len(words[i+1]) and words[i][:min_length] == words[i+1][:min_length]:
+                return ''
+            for j in range(min_length):
+                if words[i][j]!= words[i+1][j]:
+                    alien_dict[words[i][j]].add(words[i+1][j])
                     break
-            else: # Check that second word isn't a prefix of first word.
-                if len(second_word) < len(first_word): 
-                    return ""
+        result = []
+        queue = []
+        for node in alien_dict:
+            if not alien_dict[node]:
+                queue.append(node)
+        while queue:
+            node = queue.pop(0)
+            result.insert(0, node)
+            for rem in alien_dict:
+                if node in alien_dict[rem]:
+                    alien_dict[rem].remove(node)
+                    if not alien_dict[rem]:
+                        queue.append(rem)
+        if len(alien_dict) != len(result):
+            return ''
 
-        # Step 2: Depth-first search.
-        seen = {} # False = grey, True = black.
-        output = []
-        def visit(node):  # Return True iff there are no cycles.
-            if node in seen:
-                return seen[node] # If this node was grey (False), a cycle was detected.
-            seen[node] = False # Mark node as grey.
-            for next_node in reverse_adj_list[node]:
-                result = visit(next_node)
-                if not result: 
-                    return False # Cycle was detected lower down.
-            seen[node] = True # Mark node as black.
-            output.append(node)
-            return True
-
-        if not all(visit(node) for node in reverse_adj_list):
-            return ""
-
-        return "".join(output)
+        return ''.join(result)
+        
