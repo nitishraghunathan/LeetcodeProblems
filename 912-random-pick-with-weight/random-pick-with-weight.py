@@ -2,6 +2,16 @@ class Solution:
     def __init__(self, w: List[int]):
         """
         :type w: List[int]
+        create a prefix sum:
+        add all the weights and store prefix sum array 
+        have a total_sum array 
+        when comupting weighted random 
+        use total_sum * random.random 
+        ince you get the weight 
+        find the index closest to the weight 
+        use low = 0 and high = len(w)-1
+        and then if target < w[mid] reduce the right window else 
+        increase the left window
         """
         #Accumulate all the wieghts and find the index closest to the weight
         self.prefix_sums = []
