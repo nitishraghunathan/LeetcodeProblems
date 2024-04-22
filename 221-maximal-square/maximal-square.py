@@ -1,14 +1,30 @@
 class Solution:
-    def maximalSquare(self, matrix: List[List[str]]) -> int:
-        m, n, result = len(matrix), len(matrix[0]), 0
-        dp = [0]*n  # 1D array
-        for i in range(m):
-            prev = 0  # stores dp[i-1][j-1]
-            for j in range(n):
-                dp[j], prev = 0 if matrix[i][j] == '0' else \
-                    (min(dp[j],  # dp[j] -> dp[i-1][j]
-                         dp[j-1] if j > 0 else 0,  # dp[j-1] -> dp[i][j-1]
-                         prev)  # prev -> dp[i-1][j-1]
-                    + 1), dp[j]
-                result = dp[j] if dp[j] > result else result
-        return result*result
+    def maximalSquare(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        dp = {}
+        max_value = 0
+        rows = len(matrix)
+        cols = len(matrix[0])
+        
+        def dfs(r,c):
+            if r < 0 or c < 0 or r >= rows or c >= cols or matrix[r][c] == "0":
+                return 0
+            if (r,c) in dp:
+                return dp[(r,c)]
+            right = dfs(r, c + 1)
+            diag = dfs(r + 1, c + 1)
+            bot = dfs(r + 1, c)
+            dp[(r,c)] = 1 + min(right, diag, bot)
+            return dp[(r,c)]
+            
+        for r in range(rows):
+            for c in range(cols):
+                if matrix[r][c] == "1":
+                    max_value = max(max_value, dfs(r,c))
+                    
+        return max_value ** 2
+
+
