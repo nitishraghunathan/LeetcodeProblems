@@ -6,28 +6,21 @@
 #         self.right = right
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        """
-        1. Level order traversal of binary tree 
-        2. Add the root node to the queue
-        3. Traverse the children from left to right
-        4. Remove the ndoes form the queue 
-        5. Again add the nodes for each level
-        6. store these nodes in an array
-        """
-        helper_queue = []
-        final_list=[]
-        if root is None:
+        if not root:
             return None
-        helper_queue.append(root)
-        while helper_queue:
-            size = len(helper_queue)
-            result_order_list = []
+        queue = []
+        result = []
+        queue.append(root)
+        while queue:
+            size = len(queue)
+            new_result = []
             for i in range(size):
-                polled_node = helper_queue.pop(0)
-                if polled_node.left:
-                    helper_queue.append(polled_node.left)
-                if polled_node.right:
-                    helper_queue.append(polled_node.right)
-                result_order_list.append(polled_node.val)
-            final_list.append(result_order_list)
-        return final_list
+                node = queue.pop(0)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                new_result.append(node.val)
+            result.append(list(new_result))
+        return result
+        
