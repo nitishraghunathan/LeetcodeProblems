@@ -1,13 +1,14 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        result = set()
-        def recursion(nums, start):
-            if start > len(nums)-1:
+        def dfs(result:list, nums:list, index):
+            if index == len(nums):
+                result.append(list(nums))
                 return result
-            result.add(tuple(nums))
-            for i in range(0, len(nums)):
-                nums[start], nums[i] = nums[i], nums[start]
-                recursion(nums, start+1)
-                nums[start], nums[i] = nums[i], nums[start]
+            for i in range(index, len(nums)):
+                nums[i], nums[index] = nums[index], nums[i]
+                result = dfs(result, nums, index+1)
+                nums[i], nums[index] = nums[index], nums[i]
             return result
-        return list(recursion(nums, 0))
+        return dfs([], nums, 0)
+
+            
