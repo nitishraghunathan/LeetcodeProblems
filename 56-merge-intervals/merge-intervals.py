@@ -12,8 +12,6 @@ class Solution:
             else:
                 result.append(a)
                 heapq.heappush(queue, b)
-        print(result)
-        print(queue)
         if len(queue) > 0:
             if result and result[-1][1] >= queue[-1][0]:
                 result[-1][0] = min(result[-1][0], queue[-1][0])
