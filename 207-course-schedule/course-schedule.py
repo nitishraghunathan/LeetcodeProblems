@@ -1,24 +1,22 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph = {}
+        map_dict ={}
         for i in range(numCourses):
-            if i not in graph:
-                graph[i] = set()
+            if i not in map_dict:
+                map_dict[i] = set()
         for pre in prerequisites:
-            graph[pre[1]].add(pre[0])
+            map_dict[pre[1]].add(pre[0])
         queue = []
-        for key, value in graph.items():
-            if len(value) ==0:
+        for key, value in map_dict.items():
+            if not value:
                 queue.append(key)
-        result= []
+        result = []
         while queue:
-            node_id = queue.pop(0)
-            result.insert(0, node_id)
-            for key, value in graph.items():
-                if node_id in value:
-                    value.remove(node_id)
-                    if len(value) == 0:
+            id = queue.pop(0)
+            result.insert(0, id)
+            for key, value in map_dict.items():
+                if id in value:
+                    value.remove(id)
+                    if not value:
                         queue.append(key)
-        if len(result) == numCourses:
-            return True
-        return False
+        return len(result)==numCourses
