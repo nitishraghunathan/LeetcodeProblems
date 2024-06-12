@@ -1,25 +1,15 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-
-        results = []
-
-        def backtrack(remain, comb, start):
-            if remain == 0:
-                # make a deep copy of the current combination
-                results.append(list(comb))
+        result = []
+        def recursion(sum_value, list_numbers,start):
+            if sum_value == 0:
+                result.append(list(list_numbers))
                 return
-            elif remain < 0:
-                # exceed the scope, stop exploration.
-                return
-
+            elif sum_value < 0:
+                return 
             for i in range(start, len(candidates)):
-                # add the number into the combination
-                comb.append(candidates[i])
-                # give the current number another chance, rather than moving on
-                backtrack(remain - candidates[i], comb, i)
-                # backtrack, remove the number from the combination
-                comb.pop()
-
-        backtrack(target, [], 0)
-
-        return results
+                list_numbers.append(candidates[i])
+                recursion(sum_value-candidates[i], list_numbers, i)
+                list_numbers.pop()
+        recursion(target,[],0)
+        return result
