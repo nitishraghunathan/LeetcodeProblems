@@ -1,32 +1,30 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        def bfs(queue, grid):
-            directions = [[0,1],[0,-1],[-1,0],[1,0]]
-            counter = -1
+        def bfs(queue, grid, counter):
+            directions = [[0,1], [0,-1], [1,0], [-1,0]]
             while queue:
                 size = len(queue)
-                counter +=1
                 for i in range(size):
-                    direct = queue.pop(0)
+                    x, y = queue.pop(0)
                     for dir in directions:
-                        x = dir[0] + direct[0]
-                        y = dir[1] + direct[1]
-                        if x < 0 or y < 0 or x > len(grid) -1 or y > len(grid[x])-1 or grid[x][y] !=1:
+                        x_new = x + dir[0]
+                        y_new = y + dir[1]
+                        if x_new < 0 or y_new < 0 or x_new > len(grid)-1 or y_new > len(grid[x_new]) -1 or grid[x_new][y_new] != 1:
                             continue
-                        grid[x][y]=2
-                        queue.append((x,y))
+                        grid[x_new][y_new] = 2
+                        queue.append([x_new, y_new])
+                counter+=1
             return counter
-        value = 0
         queue = []
+        counter = -1
         for i in range(len(grid)):
             for j in range(len(grid[i])):
-                if grid[i][j]==2:
-                    queue.append((i,j))
-        value = bfs(queue, grid)
+                if grid[i][j] == 2:
+                    queue.append([i,j])
+        counter = bfs(queue, grid, counter)
         for i in range(len(grid)):
             for j in range(len(grid[i])):
-                if grid[i][j]==1:
+                if grid[i][j] == 1:
                     return -1
-        return 0 if value == -1 else value
-        
-
+        return 0 if counter == -1 else counter
+                
