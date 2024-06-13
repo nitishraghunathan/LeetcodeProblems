@@ -1,16 +1,14 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        subset_list = []
-        return self.recursion([],[],0,nums)
- 
-    
-    def recursion(self, subset_list:List[List[int]], subset:List[int] , index:int, nums:List[int])-> List[List[int]]:
-        if index == len(nums):
-            subset_list.append(list(subset))
-            return subset_list
-        subset.append(nums[index])
-        subset_list = self.recursion(subset_list, list(subset), index+1, nums)
-        subset.pop()
-        subset_list = self.recursion(subset_list,list(subset), index+1,nums)
-        return subset_list
-        
+        result= []
+        def recursion(nums, new_list, index):
+            if index == len(nums):
+                result.append(list(new_list))
+                return 
+            new_list.append(nums[index])
+            recursion(nums, new_list, index+1)
+            new_list.pop()
+            recursion(nums, new_list, index+1)
+            return
+        recursion(nums,[],0)
+        return result
