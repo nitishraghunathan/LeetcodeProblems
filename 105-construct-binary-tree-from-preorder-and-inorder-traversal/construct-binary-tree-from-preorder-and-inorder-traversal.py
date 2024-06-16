@@ -12,17 +12,15 @@
 #         self.right = right
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-       
+        preorder_index = [0]
         def dfs(left, right):
-            nonlocal preorder_index
             if left > right:
                 return None
-            val = preorder[preorder_index]
+            val = preorder[preorder_index[0]]
             root = TreeNode(val)
-            preorder_index +=1
+            preorder_index[0] +=1
             index = inorder.index(val)
             root.left = dfs(left, index-1)
             root.right = dfs(index+1, right)
             return root
-        preorder_index = 0
         return dfs(0, len(preorder)-1)
