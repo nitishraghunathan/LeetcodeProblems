@@ -9,11 +9,11 @@ class Solution:
          6. We store the index as well as the value in the stack
          7. we return the results array
         """
-        results = [0]*len(temperatures)
+        result = [0]*len(temperatures)
         stack = []
         for index, value in enumerate(temperatures):
             while stack and stack[-1][1] < value:
                 past_index, past_value = stack.pop()
-                results[past_index] = index - past_index
+                result[past_index] = index - past_index
             stack.append([index, value])
-        return results
+        return result
