@@ -7,7 +7,7 @@ class Solution:
             new_sum = nums[i]
             j= i+1
             k = len(nums)-1
-            while j < len(nums)-1 and k > -1 and j < k:
+            while j < len(nums)-1 and j < k:
                 sum_three = new_sum + nums[j] + nums[k]
                 diff = abs(target - sum_three)
                 if diff < closest:
