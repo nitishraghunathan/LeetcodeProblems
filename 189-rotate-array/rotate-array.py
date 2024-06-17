@@ -3,15 +3,15 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        k = k%len(nums)
-        def reverse(nums, low, high):
-            while low < high:
-                nums[low], nums[high] = nums[high], nums[low]
-                low, high = low+1, high-1
-
+        k%=len(nums)
+        def reverse(start, end, nums):
+            while start < len(nums) and end > -1 and start <= end:
+                nums[start], nums[end] = nums[end], nums[start]
+                start +=1
+                end -=1
             return nums
-        nums = reverse(nums, 0, len(nums)-1)
-        nums = reverse(nums, 0, k-1)
-        nums = reverse(nums, k, len(nums)-1)
+        nums = reverse(0, len(nums)-1, nums)
+        nums = reverse(0, min(k-1, len(nums)-2), nums)
+        nums = reverse(min(k, len(nums)-1), len(nums)-1, nums)
         return nums
         
