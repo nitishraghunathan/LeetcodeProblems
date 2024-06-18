@@ -17,5 +17,4 @@ class Solution:
             for j in range(len(nums)):
                 if nums[j] <= i:
                     dp[i] += dp[i-nums[j]]
-        print(dp)
         return dp[-1]
