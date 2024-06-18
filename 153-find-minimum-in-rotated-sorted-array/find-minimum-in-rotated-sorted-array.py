@@ -3,7 +3,7 @@ class Solution:
         left, right = 0, len(nums)-1
         min_value = float('inf')
         while left <= right:
-            if nums[left] < nums[right]:
+            if nums[left] <= nums[right]:
                 min_value = min(min_value, nums[left])
                 return min_value 
             mid = left + (right-left)//2
