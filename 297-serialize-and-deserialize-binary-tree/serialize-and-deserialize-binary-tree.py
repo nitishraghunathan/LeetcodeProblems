@@ -32,7 +32,6 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        print(data)
         encoded_list = data.split(",")
         def dfs(encoded_list):
             if not encoded_list:
