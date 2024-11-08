@@ -6,10 +6,10 @@ class Solution:
          3. Pop elements once size is greater the K
          4. return the coordinates
         """
-        heap = []
+        result = []
         for point in points:
-            distance = -((point[0]*point[0]) + (point[1]*point[1]))
-            heapq.heappush(heap, (distance, point))
-            if len(heap) > k:
-                heapq.heappop(heap)
-        return [heapq.heappop(heap)[1] for i in range(k)]
+            heapq.heappush(result, (-((point[0]*point[0]) + (point[1]*point[1])), point))
+            while len(result) > k:
+                heapq.heappop(result)
+            new_result = []
+        return [heapq.heappop(result)[1] for i in range(k)]
