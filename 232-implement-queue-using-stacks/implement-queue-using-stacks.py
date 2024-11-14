@@ -10,7 +10,8 @@ class MyQueue:
     def pop(self) -> int:
         while self.stack_one:
             self.stack_two.append(self.stack_one.pop())
-        val = self.stack_two.pop()
+        print(self.stack_two)
+        val = self.stack_two.pop() if self.stack_two else -1
         while self.stack_two:
             self.stack_one.append(self.stack_two.pop())
         return val
@@ -18,13 +19,13 @@ class MyQueue:
     def peek(self) -> int:
         while self.stack_one:
             self.stack_two.append(self.stack_one.pop())
-        val = self.stack_two[-1]
+        val = self.stack_two[-1] if self.stack_two  else -1
         while self.stack_two:
             self.stack_one.append(self.stack_two.pop())
         return val
+
     def empty(self) -> bool:
-        return not self.stack_one
-        
+        return len(self.stack_one) == 0
 
 
 # Your MyQueue object will be instantiated and called as such:
