@@ -12,7 +12,6 @@ class Solution:
             map_dict[char] +=1
         even_count = 0
         odd_count = 0
-        print(map_dict)
         odd_flag = False
         for key, value in map_dict.items():
             if value%2==0:
