@@ -5,10 +5,19 @@ class Solution:
         Maximum length of a palindrome is adding all the even occurences, and one odd occurence
         abdccdcdba
         """
-        repeated_occurences = set()
+        map_dict = {}
         for char in s:
-            if char not in repeated_occurences:
-                repeated_occurences.add(char)
+            if char not in map_dict:
+                map_dict[char] = 0
+            map_dict[char] +=1
+        even_count = 0
+        odd_count = 0
+        print(map_dict)
+        odd_flag = False
+        for key, value in map_dict.items():
+            if value%2==0:
+                even_count += value
             else:
-                repeated_occurences.remove(char)
-        return len(s) - len(repeated_occurences) + 1 if len(repeated_occurences) > 0 else len(s)
+                odd_flag = True
+                odd_count += value -1
+        return even_count + odd_count + 1 if odd_flag else even_count
