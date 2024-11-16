@@ -2,7 +2,7 @@ class Solution:
     def longestPalindrome(self, s: str) -> int:
         """
         To find the longest palindrome, we need to keep count with the number of alphabets, keys will the alphabets and values will be the occurences. 
-        Maximum length of a palindrome is adding all the even occurences, and one odd occurence
+        Maximum length of a palindrome is adding all the even occurences, and one odd occurence, but if multiple odd occurences, take 1 less than the total for each odd occurence
         abdccdcdba
         """
         map_dict = {}
