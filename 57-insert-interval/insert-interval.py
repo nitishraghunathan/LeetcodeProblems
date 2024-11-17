@@ -1,27 +1,23 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        heapq.heapify(intervals)
         result = []
-        intervals.append(newInterval)
-        heapq.heapify(result)
-        for interval in intervals:
-            heapq.heappush(result, interval)
-        interval = []
-        while len(result) > 1:
-            a = heapq.heappop(result)
-            b = heapq.heappop(result)
-            if a[1] >= b[0]:
-                heapq.heappush(result, [min(a[0], a[1]), max(a[1],b[1])])
+        heapq.heappush(intervals, newInterval)
+        while len(intervals) > 1:
+            first = heapq.heappop(intervals)
+            second = heapq.heappop(intervals)
+            if first[1] >= second[0]:
+                heapq.heappush(intervals, [min(first[0], second[0]), max(first[1], second[1])])
             else:
-                interval.append(a)
-                heapq.heappush(result, b)
-        if len(result) > 0:
-            if interval and interval[-1][1] >= result[-1][0]:
-                interval[-1][1] = max(interval[-1][1], result[-1][1])
-                interval[-1][0] = min(interval[-1][0], result[-1][0])
-                heapq.heappop(result)
+                result.append(first)
+                heapq.heappush(intervals, second)
+        if len(intervals):
+            last = heapq.heappop(intervals)
+            if result and last[0] <= result[-1][1]:
+                result[-1][0] = min(result[-1][0], last[0])
+                result[-1][1] = max(result[-1][1], last[1])
             else:
-                interval.append(heapq.heappop(result))
-        return interval
-
+                result.append(last)
+        return result
 
         
