@@ -1,22 +1,26 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        nums.sort()
-        for i in range(len(nums)):
-            if nums[i] > 0:
-                break
-            if i == 0 or nums[i - 1] != nums[i]:
-                self.twoSum(nums, i, res)
-        return res
+        result = []
+        nums = sorted(nums)
+        left, right = 0, len(nums)
+        result = []
+        tracking_set = set()
+        for index, value in enumerate(nums):
+            first = value
+            j = index +1
+            k = len(nums)-1
+            while j < k:
+                three_sum = first + nums[j] + nums[k]
+                if three_sum == 0:
+                    key = str(first) + str(nums[j]) + str(nums[k])
+                    if key not in tracking_set:
+                        result.append([first, nums[j], nums[k]])
+                        tracking_set.add(key)
+                    j +=1
+                    k-=1
+                elif three_sum < 0:
+                    j+=1
+                else:
+                    k-=1
+        return result
 
-    def twoSum(self, nums: List[int], i: int, res: List[List[int]]):
-        seen = set()
-        j = i + 1
-        while j < len(nums):
-            complement = -nums[i] - nums[j]
-            if complement in seen:
-                res.append([nums[i], nums[j], complement])
-                while j + 1 < len(nums) and nums[j] == nums[j + 1]:
-                    j += 1
-            seen.add(nums[j])
-            j += 1
