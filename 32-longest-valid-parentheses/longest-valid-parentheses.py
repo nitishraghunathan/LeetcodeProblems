@@ -7,15 +7,16 @@ class Solution:
 
         """
         stack = []
-        max_value = 0
+        max_length = 0
         stack.append(['', -1])
-        for index,value in enumerate(s):
+        for index, value in enumerate(s):
             if value == '(':
-                stack.append([value,index])
+                stack.append([value, index])
             else:
                 if stack and stack[-1][0] == '(':
                     stack.pop()
-                    max_value = max(max_value, index -stack[-1][1])
+                    max_length = max(max_length, index - stack[-1][1])
                 else:
                     stack.append([value, index])
-        return max_value
+        return max_length
+
