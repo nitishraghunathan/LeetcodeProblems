@@ -1,28 +1,28 @@
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-    def __lt__(self, other):
-        return ((self.value) < (other.value))
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        current = ListNode(-1)
-        dummy = current
         queue = []
-        heapq.heapify(queue)
-        for index, linkedlist in enumerate(lists):
-            if linkedlist is not None:
-                heapq.heappush(queue, (linkedlist.val, index))
+        for index, list_node in enumerate(lists):
+            if list_node:
+                heapq.heappush(queue, (list_node.val, index))
+        dummy = ListNode(-1)
+        current = dummy
         while queue:
             val, index = heapq.heappop(queue)
-            current.next = ListNode(val)
+            new_node = ListNode(val)
+            current.next = new_node
             current = current.next
-            new_node = lists[index]
-            if new_node:
-                new_node = new_node.next
-                lists[index] = new_node
-                if new_node:
-                    heapq.heappush(queue, (new_node.val, index))
+            added_node = lists[index]
+            added_node = added_node.next
+            lists[index] = added_node
+            if added_node:
+                heapq.heappush(queue, (added_node.val, index))
         current = dummy
         return current.next
+            
+
         
