@@ -1,14 +1,31 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def dfs(result:list, nums:list, index):
-            if index == len(nums):
-                result.append(list(nums))
-                return result
-            for i in range(index, len(nums)):
-                nums[i], nums[index] = nums[index], nums[i]
-                result = dfs(result, nums, index+1)
-                nums[i], nums[index] = nums[index], nums[i]
-            return result
-        return dfs([], nums, 0)
+        result = []
+        """
+        1. Call the recursive function.
+        2. have a for loop iterating through every element in the list 
+        1, 2 ,3
+        1, index +1
+        2, index+1
+        3, index +1
 
-            
+        if index == len(nums)
+            add result.append(list(target))
+        
+        """
+        tracking_set = set()
+        def recursion(nums, index, target_list):
+            if len(target_list) == len(nums):
+                result.append(list(target_list))
+                return
+            for i in range(len(nums)):
+                if nums[i] not in tracking_set:
+                    tracking_set.add(nums[i])
+                    target_list.append(nums[i])
+                    recursion(nums, i, target_list)
+                    target_list.pop()
+                    tracking_set.remove(nums[i])
+            return
+        recursion(nums,0,[])
+        return result
+        
