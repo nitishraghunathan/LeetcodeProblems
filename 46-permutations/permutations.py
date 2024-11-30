@@ -1,6 +1,6 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        result = []
+        result = set()
         """
         1. Call the recursive function.
         2. have a for loop iterating through every element in the list 
@@ -13,19 +13,15 @@ class Solution:
             add result.append(list(target))
         
         """
-        tracking_set = set()
-        def recursion(nums, index, target_list):
-            if len(target_list) == len(nums):
-                result.append(list(target_list))
+        def recursion(nums, index):
+            if index == len(nums):
+                result.add(tuple(nums))
                 return
             for i in range(len(nums)):
-                if nums[i] not in tracking_set:
-                    tracking_set.add(nums[i])
-                    target_list.append(nums[i])
-                    recursion(nums, i, target_list)
-                    target_list.pop()
-                    tracking_set.remove(nums[i])
+                nums[index], nums[i] = nums[i], nums[index]
+                recursion(nums, index+1)
+                nums[index], nums[i] = nums[i], nums[index]
             return
-        recursion(nums,0,[])
-        return result
+        recursion(nums,0)
+        return list(result)
         
