@@ -6,11 +6,12 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def recursion(root, low, high):
+        def validate_binary_search_tree(root: Optional[TreeNode] , max_value: int, min_value: int) -> bool:
             if not root:
                 return True
-            if root.val >= high or root.val <= low:
+            if root.val <= min_value or root.val >= max_value:
                 return False
-            return recursion(root.left, low, root.val) and recursion(root.right, root.val, high)
-        return recursion(root, float('-inf'), float('inf')) 
+            return validate_binary_search_tree(root.left, root.val, min_value) and validate_binary_search_tree(root.right, max_value, root.val)
+        return validate_binary_search_tree(root, float('inf'), float('-inf'))
+        
         
