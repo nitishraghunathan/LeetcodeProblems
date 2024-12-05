@@ -1,44 +1,50 @@
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.capacity = capacity
+        self.capacity = capacity 
+        self.right, self.left = Node(0,0), Node(0,0)
+        self.right.prev , self.left.next = self.left, self.right
         self.cache = {}
-        self.right, self.left = Node(0, 0), Node(0, 0)
-        self.right.prev, self.left.next = self.left, self.right
         
-    def insert(self, node):
+
+    def insert(self, node: Optional['Node']):
         prev, next = self.right.prev, self.right
         node.next, node.prev = next, prev
         prev.next, next.prev = node, node
+
     def remove(self, node):
         prev, next = node.prev, node.next
         prev.next, next.prev = next, prev
+
+
     def get(self, key: int) -> int:
-        if key in self.cache:
-            self.remove(self.cache[key])
-            self.insert(self.cache[key])
-            return self.cache[key].value
-        return -1
-        
+        if key not in self.cache:
+            return -1
+        node = self.cache[key]
+        self.remove(node)
+        self.insert(node)
+        return node.val
 
     def put(self, key: int, value: int) -> None:
-        node = Node(key, value)
-        if key in self.cache:
-            self.remove(self.cache[key])
+        if key not in self.cache:
+            if len(self.cache) == self.capacity:
+                node = self.left.next
+                self.remove(node)
+                self.cache.pop(node.key)
+            node = Node(key, value)
             self.cache[key] = node
             self.insert(node)
-            return 
-        if len(self.cache) == self.capacity:
-            lru_node = self.left.next
-            self.remove(lru_node)
-            self.cache.pop(lru_node.key)
-        self.insert(node)
-        self.cache[key] = node
+        else:
+            node = self.cache[key]
+            self.remove(node)
+            new_node = Node(key, value)
+            self.cache[key] = new_node
+            self.insert(new_node)
         
 class Node:
-    def __init__(self, key, value):
+    def __init__(self, key: int, val: int):
         self.key = key
-        self.value = value
+        self.val = val
         self.prev = None
         self.next = None
 
