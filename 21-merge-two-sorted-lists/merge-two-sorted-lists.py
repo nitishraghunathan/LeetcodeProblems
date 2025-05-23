@@ -10,24 +10,24 @@ class Solution:
         new_node = ListNode(-1)
         dummy = new_node
         while current1 or current2:
-            if not current1 and not current2:
-                return dummy.next
-            elif not current1:
-                new_node.next = ListNode(current2.val)
+            x = 0 if not current1 else current1.val
+            y = 0 if not current2 else current2.val
+            if not current1:
+                new_node.next = ListNode(y)
                 current2 = current2.next
-                new_node = new_node.next
+
             elif not current2:
-                new_node.next = ListNode(current1.val)
+                new_node.next = ListNode(x)
                 current1 = current1.next
-                new_node = new_node.next
-            else:
-                val = current1.val if current1.val < current2.val else current2.val
-                new_node.next = ListNode(val)
-                new_node = new_node.next
-                if current1.val < current2.val:
-                    current1 = current1.next 
-                else:
+            elif x > y:
+                new_node.next = ListNode(y)
+                if current2:
                     current2 = current2.next
+            else:
+                new_node.next = ListNode(x)
+                if current1:
+                    current1 = current1.next
+            new_node = new_node.next
         return dummy.next
 
         
