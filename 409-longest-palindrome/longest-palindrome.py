@@ -1,22 +1,36 @@
 class Solution:
     def longestPalindrome(self, s: str) -> int:
         """
-        To find the longest palindrome, we need to keep count with the number of alphabets, keys will the alphabets and values will be the occurences. 
-        Maximum length of a palindrome is adding all the even occurences, and one odd occurence, but if multiple odd occurences, take 1 less than the total for each odd occurence
-        abdccdcdba
+        Given a list of lowercase letters and uppercase letters, return the length of the longest palindrome that cna be built with those letters
+        Aa
+        AaA
+        abccccdd
+        What are the rules of palindrome:
+        1. if length is even they should have same 6
+        aabbcc
+        we have a map of lowercase and upper case letters
+        the longest length that can be formed
+        abbba
+        1. Get the count of alphabets in the string
+        2. Determine those alphabets with an even count add them all
+        3. Take any of the with max odd count and then return the answer
+
         """
         map_dict = {}
-        for char in s:
-            if char not in map_dict:
-                map_dict[char] = 0
-            map_dict[char] +=1
-        even_count = 0
-        odd_count = 0
+        for index,value in enumerate(s):
+            if value not in map_dict:
+                map_dict[value] = 0
+            map_dict[value] += 1
+        even_count_alphabets=0
+        max_odd_count = 0
         odd_flag = False
+        odd_count = 0
         for key, value in map_dict.items():
             if value%2==0:
-                even_count += value
+                even_count_alphabets +=value
             else:
-                odd_flag = True
-                odd_count += value -1
-        return even_count + odd_count + 1 if odd_flag else even_count
+               odd_flag = True
+               odd_count += value-1
+        return even_count_alphabets + odd_count +1 if odd_flag else even_count_alphabets
+
+        
