@@ -1,9 +1,11 @@
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        set_new = set()
-        for i in nums:
-            if i in set_new:
+        map_dict = {}
+        counter = 0
+        for index,value in enumerate(nums):
+            if value not in map_dict:
+                map_dict[value] = 1
+            else:
                 return True
-            set_new.add(i)
         return False
         
