@@ -1,16 +1,21 @@
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
         stack = []
-        def get_string(string: str):
-            stack = []
-            for index, value in enumerate(string):
-                if value == '#':
-                    if stack:
-                        stack.pop()
+        new_str = ""
+        def create_string(string: str):
+            new_string = ""
+            skip = 0
+            for index in range(len(string)-1, -1, -1):
+                if string[index] == "#":
+                    skip +=1
+                elif skip > 0:
+                    skip -=1
+                    continue
                 else:
-                    stack.append(value)
-            return "".join(stack)
-        return get_string(s) == get_string(t)
+                    new_string += string[index]
+            return new_string
+        return create_string(s) == create_string(t)
+
 
                 
 
