@@ -1,32 +1,26 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
-        """
-        1. Add all the strings to the stack
-        2. When there is an operator pop two stack elements and perfrom operations and append them back to the slack
-        3. If there are no operators it is assumed to be addition
-        """
         stack = []
-        for index, value in enumerate(tokens):
-            if value == '+':
+        for token in tokens:
+            if token in set(["+", "-", "*", "/"]):
                 if len(stack) > 1:
                     a = stack.pop()
                     b = stack.pop()
-                    stack.append(a+b)
-            elif value == '-':
-                if len(stack) > 1:
-                    a = stack.pop()
-                    b = stack.pop()
-                    stack.append(b-a)
-            elif value == '*':
-                if len(stack) > 1:
-                    a = stack.pop()
-                    b = stack.pop()
-                    stack.append(b*a)
-            elif value == '/':
-                if len(stack) > 1:
-                    a = stack.pop()
-                    b = stack.pop()
-                    stack.append(int(b/a))
+                    sum_value = 0
+                    if token == '+':
+                        sum_value = int(a) + int(b)
+                    elif token == '-':
+                        sum_value = int(b) - int(a)
+                    elif token == '*':
+                        sum_value = int(a) * int(b)
+                    else:
+                        sum_value = int(int(b)/int(a))
+                    stack.append(str(sum_value))
+                else:
+                    return -1
             else:
-                stack.append(int(value))
-        return stack.pop()
+                stack.append(token)
+            
+        return int(stack.pop()) if stack else -1
+
+        
