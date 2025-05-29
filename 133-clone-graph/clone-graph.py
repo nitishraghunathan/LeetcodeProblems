@@ -10,18 +10,21 @@ from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         map_dict = {}
-        def dfs(node):
+        visited = set()
+        def clone_graph(node: Optional['Node']):
+            nonlocal map_dict
             if not node:
                 return None
+            new_node = None
             if node.val in map_dict:
-                new_node = map_dict[node.val]
-                return new_node
+                return  map_dict[node.val]
             else:
-                new_node = Node(node.val)
-                map_dict[node.val] = new_node
-            for nodes in node.neighbors:
-                new_node.neighbors.append(dfs(nodes))
+                map_dict[node.val] = Node(node.val)
+                new_node = map_dict[node.val]
+            new_node = map_dict[node.val]
+            for child in node.neighbors:
+                new_node.neighbors.append(clone_graph(child))
             return new_node
-        return dfs(node)
-
+        return clone_graph(node) 
+                
         
