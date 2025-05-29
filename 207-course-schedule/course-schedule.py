@@ -18,8 +18,8 @@ class Solution:
                 dependent_courses[i] = set()
 
         for arr in prerequisites:
-            if arr[0] not in dependent_courses:
-                dependent_courses[arr[0]] = set()
+            # if arr[0] not in dependent_courses:
+            #     dependent_courses[arr[0]] = set()
             dependent_courses[arr[0]].add(arr[1])
         for key, value in dependent_courses.items():
             if len(value) == 0:
