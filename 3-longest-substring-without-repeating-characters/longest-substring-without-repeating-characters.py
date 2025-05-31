@@ -1,19 +1,23 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        left = 0
+        right = len(s)
         map_dict = {}
+        index = 0
         max_length = 0
-        tracker = 0
-        for index, character in enumerate(s):
-            if character not in map_dict:
-                map_dict[character] = index
-                max_length = max(max_length, len(map_dict))
+        while left < right:
+            if s[left] not in map_dict:
+                map_dict[s[left]] = left
+                left +=1
+                max_length = max(max_length, left-index)
             else:
-                old_index = map_dict[character]
-                while tracker <= old_index:
-                    map_dict.pop(s[tracker])
-                    tracker +=1
-                map_dict[character] = index
+                new_pointer = map_dict[s[left]]
+                while index <= new_pointer:
+                    map_dict.pop(s[index])
+                    index +=1
+                map_dict[s[left]] = left
+                left+=1
         return max_length
-            
+
 
         
