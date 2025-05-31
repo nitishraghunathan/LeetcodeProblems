@@ -2,26 +2,18 @@ class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         result = set()
         """
-        1. Call the recursive function.
-        2. have a for loop iterating through every element in the list 
-        1, 2 ,3
-        1, index +1
-        2, index+1
-        3, index +1
-
-        if index == len(nums)
-            add result.append(list(target))
-        
+        1. permutations to this problem
+        recursion, pass in a parameter
+            index, list and a result list
         """
-        def recursion(nums, index):
+        def define_permutations(nums, index):
             if index == len(nums):
                 result.add(tuple(nums))
-                return
+                return result
             for i in range(len(nums)):
-                nums[index], nums[i] = nums[i], nums[index]
-                recursion(nums, index+1)
-                nums[index], nums[i] = nums[i], nums[index]
-            return
-        recursion(nums,0)
+                nums[i], nums[index] = nums[index], nums[i]
+                define_permutations(nums, index+1)
+                nums[i], nums[index] = nums[index], nums[i]
+            return result
+        define_permutations(nums, 0)
         return list(result)
-        
