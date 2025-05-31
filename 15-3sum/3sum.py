@@ -1,26 +1,21 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        result = []
+        first = 0
+        final_pointer = len(nums)
+        result = set()
         nums = sorted(nums)
-        left, right = 0, len(nums)
-        result = []
-        tracking_set = set()
-        for index, value in enumerate(nums):
-            first = value
-            j = index +1
-            k = len(nums)-1
-            while j < k:
-                three_sum = first + nums[j] + nums[k]
-                if three_sum == 0:
-                    key = str(first) + str(nums[j]) + str(nums[k])
-                    if key not in tracking_set:
-                        result.append([first, nums[j], nums[k]])
-                        tracking_set.add(key)
-                    j +=1
-                    k-=1
-                elif three_sum < 0:
-                    j+=1
+        while first < final_pointer:
+            second = first+1
+            third = final_pointer-1
+            while second < final_pointer and third < final_pointer and second < third:
+                total_sum = nums[second] + nums[third] + nums[first]
+                if total_sum == 0:
+                    result.add((nums[first], nums[second], nums[third]))
+                    second +=1
+                    third -=1
+                elif total_sum < 0:
+                    second+= 1
                 else:
-                    k-=1
-        return result
-
+                    third-= 1
+            first +=1
+        return [[arr[0], arr[1], arr[2]] for arr in result]
