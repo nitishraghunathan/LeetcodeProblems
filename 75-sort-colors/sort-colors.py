@@ -2,24 +2,41 @@ class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
+        Using two pointers
+        p0 - 0 
+        p1 = len(nums)-1
+        The algorithm is like follows:
+        [2,0,2,1,1,0]
+        while 0 - push right
+        while 2 - push left
+        while rig
         """
-        """
-        1. Take three pointers, zero, current, two. Zero and current would be at index 0 and two would be the last index of nums
-        2. Iterate through all elements of the array from left to right
-        3. when there is a zero value then swap elements at zero pointer and current pointer and increment both the pointers
-        4. when there is a two value swap elements at current index and two pointer index, decrement two index
-        5. if value is one then increment current index.
-        """
-        current, zero = 0,0
-        two, right = len(nums) - 1, len(nums) -1 
-        while current <= two:
-            if nums[current] == 2:
-                nums[current], nums[two] = nums[two], nums[current]
-                two -=1
-            elif nums[current] == 0:
-                nums[current], nums[zero] = nums[zero], nums[current]
-                current +=1
-                zero+=1
+        def add_numbers(counter, left, number, nums):
+            while counter > 0 and left < len(nums):
+                nums[left] = number
+                counter-=1
+                left +=1
+            return nums, left
+        counter_zero = 0
+        counter_one = 0
+        counter_two = 0
+        for index,value in enumerate(nums):
+            if value == 0:
+                counter_zero +=1
+            elif value == 1:
+                counter_one +=1
             else:
-                current +=1
-        return nums        
+                counter_two +=1
+        left = 0
+        nums, left = add_numbers(counter_zero, left, 0, nums)
+        nums, left = add_numbers(counter_one, left, 1, nums)
+        nums, left = add_numbers(counter_two, left, 2, nums)
+        return nums
+
+
+
+
+
+
+
+        
