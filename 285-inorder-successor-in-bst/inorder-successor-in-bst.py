@@ -16,11 +16,11 @@ class Solution:
                 stack.append(root)
                 root = root.left
             node = stack.pop()
-            if node.right:
-                root = node.right
             if flag:
                 return node
             if node.val == p.val:
                 flag =True
+            if node.right:
+                root = node.right
         return None
         
