@@ -7,18 +7,20 @@
 
 class Solution:
     def inorderSuccessor(self, root: TreeNode, p: TreeNode) -> Optional[TreeNode]:
-        queue = []
-        min_val = float('inf')
-        tree_node = None
-        while root or queue:
+        if not root or not p:
+            return None
+        stack = []
+        flag = False
+        while stack or root:
             while root:
-                queue.append(root)
+                stack.append(root)
                 root = root.left
-            node = queue.pop()
-            if node.val > p.val:
-                if not tree_node or tree_node.val > node.val:
-                    tree_node = node
-            root = node.right
-        return tree_node
-
-                
+            if stack:
+                node = stack.pop()
+                root = node.right
+            if flag:
+                return node
+            if node.val == p.val:
+                flag =True
+        return None
+        
