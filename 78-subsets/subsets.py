@@ -1,15 +1,18 @@
 class Solution:
-    def subsets(self, nums):
-        self.output = []
-        self.n, self.k = len(nums), None
-        for self.k in range(self.n + 1):
-            self.backtrack(0, [], nums)
-        return self.output
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = set()
+        def subset(nums, subset_combination, index):
+            nonlocal result
+            if index == len(nums):
+                result.add(tuple(subset_combination))
+                return result
+            for i in range(index, len(nums)):
+                subset_combination.append(nums[i])
+                result = subset(nums, list(subset_combination), i+1)
+                subset_combination.pop()
+                result = subset(nums, list(subset_combination), i+1)
+            return result
+        result = subset(nums, [], 0)
+        return [list(iters) for iters in result]
 
-    def backtrack(self, first, curr, nums):
-        if len(curr) == self.k:
-            self.output.append(curr[:])
-        for i in range(first, self.n):
-            curr.append(nums[i])
-            self.backtrack(i + 1, curr, nums)
-            curr.pop()
+        
