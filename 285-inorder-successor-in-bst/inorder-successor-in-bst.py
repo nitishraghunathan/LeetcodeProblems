@@ -15,8 +15,8 @@ class Solution:
             while root:
                 stack.append(root)
                 root = root.left
-            if stack:
-                node = stack.pop()
+            node = stack.pop()
+            if node.right:
                 root = node.right
             if flag:
                 return node
