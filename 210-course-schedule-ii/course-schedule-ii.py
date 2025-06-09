@@ -1,25 +1,22 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        toopological_sort = [0]*numCourses
-        in_degree = [0]*numCourses
+        graph_dict = {}
+        for i in range(numCourses):
+            if i not in graph_dict:
+                graph_dict[i] = []
+        for req in prerequisites:
+            graph_dict[req[0]].append(req[1])
         queue = []
-        for course in prerequisites:
-            in_degree[course[1]] +=1
-        for i in range(len(in_degree)):
-            if in_degree[i] == 0:
+        for i in range(numCourses):
+            if not graph_dict[i]:
                 queue.append(i)
-        index = numCourses-1
+        result = []
         while queue:
-            destination = queue.pop(0)
-            toopological_sort[index] = destination
-            index-=1
-            for i in range(len(prerequisites)):
-                if prerequisites[i][0] == destination:
-                    in_degree[prerequisites[i][1]] -=1
-                    if in_degree[prerequisites[i][1]] == 0:
-                        queue.append(prerequisites[i][1])
-        if index!=-1:
-            return []
-        return toopological_sort
-
-        
+            course_id = queue.pop(0)
+            for key,value in graph_dict.items():
+                if course_id in value:
+                    value.remove(course_id)
+                    if not value:
+                        queue.append(key)
+            result.append(course_id)
+        return result if len(result) == numCourses else []
