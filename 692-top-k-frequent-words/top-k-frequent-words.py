@@ -14,5 +14,3 @@ class Solution:
             queue.append(key)
             k-=1
         return queue
-
-
