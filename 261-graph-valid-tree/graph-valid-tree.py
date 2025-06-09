@@ -1,23 +1,22 @@
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
-
-        if len(edges) != n - 1: return False
-
-        # Create an adjacency list.
-        adj_list = [[] for _ in range(n)]
-        for A, B in edges:
-            adj_list[A].append(B)
-            adj_list[B].append(A)
-
-        # We still need a seen set to prevent our code from infinite
-        # looping if there *is* cycles (and on the trivial cycles!)
-        seen = set()
-
-        def dfs(node):
-            if node in seen: return
-            seen.add(node)
-            for neighbour in adj_list[node]:
-                dfs(neighbour)
-
-        dfs(0)
-        return len(seen) == n
+        graph_dict = {}
+        if len(edges) != n-1:
+            return False
+        for i in range(n):
+            if i not in graph_dict:
+                graph_dict[i] = []
+        for edge in edges:
+            graph_dict[edge[0]].append(edge[1])
+            graph_dict[edge[1]].append(edge[0])
+        visited = set()
+        def dfs(graph_dict: dict, node: int):
+            if node in visited:
+                return
+            visited.add(node)
+            for value in graph_dict[node]:
+                result = dfs(graph_dict, value)
+            return
+        dfs(graph_dict, 0)
+        return len(visited) == n
+        
