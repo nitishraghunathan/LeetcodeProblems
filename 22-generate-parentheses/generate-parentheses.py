@@ -1,24 +1,24 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         """
-        1. Generate complete parenthesis pairs
-        2. The opening and closing braces should be matched
-        3. Consider nesting cases
-        4. perfrom recursion, backtrack and generate combinations
+        Have two counters for tracking the one for the open brackets and the other closing brackets
+        keep appending open brackets as long as open count is less than close,
+        backtrack adn send for other open close combinations
+        append the closing bracket only if the open count is less than the close return the result
+        finally when the size of the string is 2*n then append it to result
         """
         result = []
-        def generate(open, close, string):
-            nonlocal result, n
-            if len(string) == 2*n:
-                result.append(string)
+        def recursion(open:int, close:int, n:int, parenthesis: str):
+            nonlocal result
+            if len(parenthesis) == 2*n:
+                result.append(parenthesis)
                 return result
             if open > 0:
-                string += '('
-                result = generate(open-1, close, string)
-                string = string[:len(string)-1]
-            if close  > open:
-                string += ')'
-                result = generate(open, close-1, string)
+                parenthesis += "("
+                result = recursion(open-1, close, n, parenthesis)
+                parenthesis = parenthesis[:len(parenthesis)-1]
+            if close > open:
+                parenthesis += ")"
+                result = recursion(open, close-1, n, parenthesis)
             return result
-        return generate(n, n, '')
-        
+        return recursion(n,n,n,"")
