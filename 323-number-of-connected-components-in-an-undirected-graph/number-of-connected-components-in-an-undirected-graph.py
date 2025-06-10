@@ -7,27 +7,28 @@ class Solution:
         for i in range(n):
             uf.find(i)
         return len(set(uf.root))
+        
+
 
 
 class UnionFind:
     def __init__(self, n):
         self.root = [i for i in range(n)]
-        self.rank = [1]*n
+        self.rank = [1 for i in range(n)]
+    
     def find(self, x):
-        if self.root[x] == x:
-            return self.root[x]
-        self.root[x] =  self.find(self.root[x])
+        if x == self.root[x]:
+            return x
+        self.root[x] = self.find(self.root[x])
         return self.root[x]
+    
     def union(self, x, y):
         rootx = self.find(x)
         rooty = self.find(y)
-        if rootx!=rooty:
-            if self.rank[rootx] >= self.rank[rooty]:
-                self.root[rooty] = rootx
-                self.rank[rootx] +=1
-            else:
-                self.root[rootx] = rooty
-                self.rank[rooty] +=1
+        if self.rank[rootx] >= self.rank[rooty]:
+            self.root[rooty] = rootx
+            self.rank[rootx] +=1
+        else:
+            self.root[rootx] = rooty
+            self.rank[rooty] +=1
         
-
-            
