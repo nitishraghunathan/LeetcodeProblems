@@ -4,8 +4,10 @@ class Solution:
         edges = sorted(edges)
         for edge in edges:
             uf.union(edge[0], edge[1])
+        #RThis is odne tomake sure we have all the root nodes for the children
         for i in range(n):
             uf.find(i)
+        #number of connected components 
         return len(set(uf.root))
         
 
