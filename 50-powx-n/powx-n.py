@@ -1,19 +1,21 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         map_dict = {}
-        def dfs(x, n):
+        if n < 0:
+            x = 1/x
+            n = -n
+        map_dict[0] = 1
+        def recursion(x: float, n:int):
             if n == 0:
                 return 1
             if n in map_dict:
                 return map_dict[n]
-            power= None
-            if n%2==1:
-                power = dfs(x,n//2)*x*dfs(x,n//2)
+            compute_x_power = recursion(x, n//2)*recursion(x, n//2)
+            if n%2 == 0:
+                map_dict[n] = compute_x_power
             else:
-                power = dfs(x,n//2)*dfs(x,n//2)
-            map_dict[n] = power
+                map_dict[n] = compute_x_power*x
             return map_dict[n]
-        value= dfs(x,abs(n))
-        if n < 0:
-            return 1/value
-        return value
+        recursion(x,n)
+        return map_dict[n]
+        
