@@ -1,42 +1,47 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         """
-        Construct a graph from teh tree and find all nodes at distance K
+        The concept used is here is that we construct a graph from a tree and then use a bfs and gather all nodes with distance K
         """
         graph_dict = {}
-        def dfs_graph_construct(root, parent):
-            if not root:
-                return
+        def construct_graph(child:TreeNode, parent: TreeNode):
+            if not child:
+                return None
             if parent:
-                if root.val not in graph_dict:
-                    graph_dict[root.val] = []
+                if child.val not in graph_dict:
+                    graph_dict[child.val] = []
                 if parent.val not in graph_dict:
                     graph_dict[parent.val] = []
-                graph_dict[root.val].append(parent.val)
-                graph_dict[parent.val].append(root.val)
-            dfs_graph_construct(root.left, root)
-            dfs_graph_construct(root.right, root)
-            return
-        dfs_graph_construct(root, None)
-        queue = []
+                graph_dict[child.val].append(parent.val)
+                graph_dict[parent.val].append(child.val)
+            construct_graph(child.left, child)
+            construct_graph(child.right, child)
+        construct_graph(root, None)
         visited = set()
-        result = []
+        queue = []
         queue.append(target.val)
         visited.add(target.val)
-        while queue and k > -1:
+        counter = 0
+        result = []
+        while queue:
             size = len(queue)
             for i in range(size):
-                node = queue.pop(0)
-                if k == 0:
-                    result.append(node)
-                for neighbor in graph_dict.get(node, []):
-                    if neighbor not in visited:
-                        visited.add(neighbor)
-                        queue.append(neighbor)
-            k-=1
-            if k == -1:
-                return result
+                val = queue.pop(0)
+                if counter == k:
+                    result.append(val)
+                for values in graph_dict.get(val, []):
+                    if values not in visited:
+                        visited.add(values)
+                        queue.append(values)
+
+            counter +=1
         return result
 
-
-            
+        
