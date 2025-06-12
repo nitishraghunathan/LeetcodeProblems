@@ -1,25 +1,23 @@
 class Solution:
-    def trap(self, height: List[int]) -> int:
+    def trap(self, heights: List[int]) -> int:
         """
-        1. Find min of left max and right max 
-        2. how do we do that ?
-        if left is less than right 
-        and left_max <=rightmax 
-        we compute new left max and subtract height at that position and give it back
+        We are going to use the two pointer approach.
+            1. Left pointer and right pointers will be used, each pointing to the left end and right of the heights arrays.
+            2. We compute the max height at each index the pointer is pointing, if left's height is greater than height then we compute rain water collected on the right side else we compute the rain water and left side
+            3. The max height is constantly updated and the ocndition are evalauted till left meets right
         """
-        if not height or len(height) < 2:
-            return 0
-        left, right = 0, len(height)-1
-        left_max = float('-inf')
-        right_max = float('-inf')
+        left, right = 0, len(heights)-1
+        left_max, right_max = float('-inf'), float('-inf')
         result = 0
-        while left <=right:
+        while left <= right:
             if left_max <= right_max:
-                left_max = max(left_max, height[left])
-                result += left_max -height[left]
-                left+=1
+                left_max = max(left_max, heights[left])
+                result += left_max - heights[left]
+                left +=1
             else:
-                right_max = max(right_max, height[right])
-                result+= right_max - height[right]
-                right-=1
+                right_max = max(right_max, heights[right])
+                result += right_max - heights[right]
+                right -=1
         return result
+
+        
