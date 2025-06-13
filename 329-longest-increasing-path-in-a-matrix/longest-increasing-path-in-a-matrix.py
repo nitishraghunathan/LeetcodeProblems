@@ -1,4 +1,10 @@
 class Solution:
+    """
+        In order to find the longest increasing path in a 2d matrix we need to use the following tools:
+        1. Iterating every element in the element in the matrix.
+        2. Perform DFS + business logic to find the longest increasing path.
+        3. Have a 2 dimensional array to cache the max path at each step.
+    """
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
         max_value = float('-inf')
         dp = [[-1]*len(matrix[0]) for i in range(len(matrix))]
