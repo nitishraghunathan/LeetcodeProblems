@@ -1,17 +1,16 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         result = []
-        def recursion(candidates: List[int], target: int, candid_list: List[int], start: int):
-            nonlocal result
-            if target == 0:
-                result.append(list(candid_list))
-                return 
-            elif target < 0:
-                return 
-            for i in range(start, len(candidates)):
-                candid_list.append(candidates[i])
-                recursion(candidates, target - candidates[i], candid_list, i)
-                candid_list.pop()
-            return 
-        recursion(candidates, target, [], 0)
+        def recursion(new_list, index, sum_index):
+            if sum_index == 0:
+                result.append(list(new_list))
+                return
+            if sum_index < 0:
+                return
+            for i in range(index, len(candidates)):
+                new_list.append(candidates[i])
+                recursion(new_list, i, sum_index - candidates[i])
+                new_list.pop()
+            return
+        recursion([], 0, target)
         return result
