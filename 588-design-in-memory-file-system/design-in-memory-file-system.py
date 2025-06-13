@@ -1,49 +1,75 @@
-class TrieNode:
-    def __init__(self):
-        self.child = collections.defaultdict(TrieNode)
-        self.isFile = False
-        self.content = ""
-        self.name = ""
-
-
 class FileSystem:
 
     def __init__(self):
-        self.root = TrieNode()    
-    
+        self.root = TrieNode('root')
+
     def ls(self, path: str) -> List[str]:
-        res = []
-        path = path.split('/')[1:]
-        cur = self.root
-        if path[0]!='':
-            for p in path:
-                cur = cur.child[p]
-        if cur.isFile:
-            return [cur.name]
-        for ch in cur.child:
-            res.append(ch)
-        return sorted(res)
+        if not path:
+            return []
+        paths = path.split('/')
+        current = self.root
+        result = []
+        for path in paths:
+            if path in current.subfiles:
+                current = current.subfiles[path]
+        if current.isFile:
+            result.append(current.name)
+        else:
+            result.extend(current.subfiles.keys())
+        return sorted(result)
+        
 
     def mkdir(self, path: str) -> None:
-        cur = self.root
-        paths = path.split('/')[1:]
-        for p in paths:
-            cur = cur.child[p]
-            cur.name = p
+        if not path:
+            return
+        paths = path.split('/')
+        current = self.root
+        result = []
+        for path in paths:
+            if path not in current.subfiles:
+                current.subfiles[path] = TrieNode(path)    
+            current = current.subfiles[path]
+        current.isFile = False
+        
 
-    def addContentToFile(self, filePath: str, content: str) -> None:
-        cur =self.root
-        filePath = filePath.split('/')[1:]
-        for p in filePath:
-            cur = cur.child[p]
-            cur.name = p
-        cur.isFile = True
-        cur.content += content
+    def addContentToFile(self, path: str, content: str) -> None:
+        if not path:
+            return
+        paths = path.split('/')
+        current = self.root
+        result = []
+        for path in paths:
+            if path not in current.subfiles:
+                current.subfiles[path] = TrieNode(path)    
+            current = current.subfiles[path]
+        current.isFile = True
+        current.content += content
 
-    def readContentFromFile(self, filePath: str) -> str:
-        cur =self.root
-        filePath = filePath.split('/')[1:]
-        for p in filePath:
-            cur = cur.child[p]
-        if cur.isFile:
-            return cur.content
+    def readContentFromFile(self, path: str) -> str:
+        if not path:
+            return []
+        paths = path.split('/')
+        current = self.root
+        result = []
+        for path in paths:
+            if path in current.subfiles:
+                current = current.subfiles[path]
+            else:
+                return "" 
+
+        return current.content if current.isFile else ''
+        
+class TrieNode:
+    def __init__(self, name):
+        self.name = name
+        self.isFile = False
+        self.subfiles = {}
+        self.content = ''
+
+
+# Your FileSystem object will be instantiated and called as such:
+# obj = FileSystem()
+# param_1 = obj.ls(path)
+# obj.mkdir(path)
+# obj.addContentToFile(filePath,content)
+# param_4 = obj.readContentFromFile(filePath)
