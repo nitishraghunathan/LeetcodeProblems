@@ -1,27 +1,35 @@
 class MedianFinder:
 
     def __init__(self):
-        self.small_max_heap = []
+        """
+        1. Have a large min heap for storing the larger elements in sorted 
+        2. Have a small max heap for storing the smaller elements
+        left - small_max_heap right - large_min_heap
+        """
         self.large_min_heap = []
-        heapq.heapify(self.small_max_heap)
-        heapq.heapify(self.large_min_heap)
+        self.small_max_heap = []
 
     def addNum(self, num: int) -> None:
-        heapq.heappush(self.small_max_heap, -1*num)
-        if self.small_max_heap and self.large_min_heap and -1*self.small_max_heap[0] > self.large_min_heap[0]:
-            heapq.heappush(self.large_min_heap, -1*heapq.heappop(self.small_max_heap))
-        if len(self.small_max_heap) -len(self.large_min_heap) > 1:
-            heapq.heappush(self.large_min_heap, -1*heapq.heappop(self.small_max_heap))
-        if len(self.large_min_heap) -len(self.small_max_heap) > 1:
-            heapq.heappush(self.small_max_heap, -1*heapq.heappop(self.large_min_heap))
-
+        min_heap = self.large_min_heap
+        max_heap = self.small_max_heap 
+        heapq.heappush(max_heap, -1*num)
+        if min_heap and max_heap and  min_heap[0] < -1 * max_heap[0]:
+            heapq.heappush(min_heap, -1* heapq.heappop(max_heap))
+        if len(min_heap) - len(max_heap) > 1:
+            heapq.heappush(max_heap, -1 * heapq.heappop(min_heap))
+        if len(max_heap) - len(min_heap) > 1:
+            heapq.heappush(min_heap, -1 * heapq.heappop(max_heap))
         
-
     def findMedian(self) -> float:
-        if len(self.large_min_heap) == len(self.small_max_heap):
-            return ((self.small_max_heap[0]*-1) + self.large_min_heap[0])/2
-        return float(self.small_max_heap[0]*(-1)) if len(self.small_max_heap) > len(self.large_min_heap) else float(self.large_min_heap[0])
-
+        min_heap = self.large_min_heap
+        max_heap = self.small_max_heap 
+        if len(min_heap) == len(max_heap):
+            return (min_heap[0] + (-1*max_heap[0]))/2
+        elif len(min_heap) > len(max_heap):
+            return float(min_heap[0])
+        else:
+            return -1 * float(max_heap[0])
+        
 
 
 # Your MedianFinder object will be instantiated and called as such:
