@@ -27,4 +27,3 @@ class Solution:
                     
         return max_value ** 2
 
-
