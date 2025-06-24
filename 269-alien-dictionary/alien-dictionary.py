@@ -1,29 +1,51 @@
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        alien_dict = { alpha: set() for word in words for alpha in word}
+        """
+        1. Build the graph 
+        2. If prefix of of words are same but lenght of first word is greater than second return no alienOrder 
+        return new order
+        we are using topological sort
+        1. Do basic cvalidations 
+            a. Same prefix but first word is greater than second return empty string.
+            b. create a dictionary mapping of all those letters in each word.
+        2. Add elements in the queue which hvae no adjacencies
+        3. Pop each element from the queue and the elements from the lists which teh map keys have
+        4. Once adjaceny of the key is zero add them to queue 
+        5. Finally add the element to the result
+        6. Validate the the length of the result and dictionary
+        7 if they are the same return the order else return ''
+        """
+        graph = {alphabet:set() for word in words for alphabet in word}
         for i in range(len(words)-1):
-            min_length = min(len(words[i]), len(words[i+1]))
-            if len(words[i]) > len(words[i+1]) and words[i][:min_length] == words[i+1][:min_length]:
-                return ''
+            word_one, word_two = words[i], words[i+1]
+            min_length = min(len(word_one), len(word_two))
+            if word_one[:min_length] == word_two[:min_length] and len(word_one) > len(word_two):
+                return ""
             for j in range(min_length):
-                if words[i][j]!= words[i+1][j]:
-                    alien_dict[words[i][j]].add(words[i+1][j])
+                if word_one[j] != word_two[j]:
+                    graph[word_one[j]].add(word_two[j])
                     break
-        result = []
         queue = []
-        for node in alien_dict:
-            if not alien_dict[node]:
-                queue.append(node)
+        for key, value in graph.items():
+            if len(value) == 0:
+                queue.append(key)
+        result = []
         while queue:
-            node = queue.pop(0)
-            result.insert(0, node)
-            for rem in alien_dict:
-                if node in alien_dict[rem]:
-                    alien_dict[rem].remove(node)
-                    if not alien_dict[rem]:
-                        queue.append(rem)
-        if len(alien_dict) != len(result):
-            return ''
+            size = len(queue)
+            for i in range(size):
+                alphabet = queue.pop(0)
+                for key, value in graph.items():
+                    if alphabet in value:
+                        value.remove(alphabet)
+                        if not value:
+                            queue.append(key)
+                result.insert(0, alphabet)
+        if len(result) != len(graph):
+            return ""
+        return "".join(result)
 
-        return ''.join(result)
-        
+
+
+
+
+       
