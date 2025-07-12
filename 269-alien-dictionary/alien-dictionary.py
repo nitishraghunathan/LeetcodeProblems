@@ -43,9 +43,3 @@ class Solution:
         if len(result) != len(graph):
             return ""
         return "".join(result)
-
-
-
-
-
-       
