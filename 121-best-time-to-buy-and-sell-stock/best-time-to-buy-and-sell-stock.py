@@ -1,6 +1,5 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        max_price = float('-inf')
         min_price = float('inf')
         profit = float('-inf')
         for index, value in enumerate(prices):
