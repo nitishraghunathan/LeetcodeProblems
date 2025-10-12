@@ -7,27 +7,26 @@ class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         current1 = list1
         current2 = list2
-        new_node = ListNode(-1)
-        dummy = new_node
+        new_list = ListNode(-1)
+        dummy = new_list
         while current1 or current2:
-            x = 0 if not current1 else current1.val
-            y = 0 if not current2 else current2.val
-            if not current1:
-                new_node.next = ListNode(y)
+            x = current1.val if current1 else float('inf')
+            y = current2.val if current2 else float ('inf')
+            if x  == float('inf'):
+                new_list.next = current2
                 current2 = current2.next
-
-            elif not current2:
-                new_node.next = ListNode(x)
+            elif y == float('inf'):
+                new_list.next = current1
                 current1 = current1.next
-            elif x > y:
-                new_node.next = ListNode(y)
-                if current2:
-                    current2 = current2.next
+            elif x >= y:
+                new_list.next = current2
+                current2 = current2.next
             else:
-                new_node.next = ListNode(x)
-                if current1:
-                    current1 = current1.next
-            new_node = new_node.next
-        return dummy.next
+                new_list.next = current1
+                current1 = current1.next
+            new_list = new_list.next
+        new_list = dummy
+        return new_list.next
+
 
         
