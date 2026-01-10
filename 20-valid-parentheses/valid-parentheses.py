@@ -1,18 +1,15 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        map_dict = { "}" : "{", ")":"(", "]" : "["}
-        map_set = set()
-        map_set.add("{")
-        map_set.add("(")
-        map_set.add("[")
+        map_dict = {')' : '(', '}' : '{', ']' : '['}
         stack = []
         for index, value in enumerate(s):
-            if value in map_set:
-                stack.append(value)
-            elif value in map_dict and len(stack) > 0 and  stack[-1] == map_dict[value]:
-                stack.pop()
+            if value in map_dict and stack:
+                diff = stack.pop()
+                if map_dict[value] != diff:
+                    return False
             else:
-                return False
+                stack.append(value)
         return not stack
+
 
         
