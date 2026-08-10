@@ -6,12 +6,12 @@ class Solution:
             if value not in map_dict:
                 stack.append(value)
             else:
-                if stack:
+                if not stack:
+                    return False
+                else:
                     val = stack.pop()
                     if val != map_dict[value]:
                         return False
-                else:
-                    return False
         return not stack
 
         
