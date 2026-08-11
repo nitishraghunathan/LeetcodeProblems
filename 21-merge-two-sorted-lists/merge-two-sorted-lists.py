@@ -4,29 +4,25 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        current1 = list1
-        current2 = list2
-        new_list = ListNode(-1)
-        dummy = new_list
-        while current1 or current2:
-            x = current1.val if current1 else float('inf')
-            y = current2.val if current2 else float ('inf')
-            if x  == float('inf'):
-                new_list.next = current2
-                current2 = current2.next
-            elif y == float('inf'):
-                new_list.next = current1
-                current1 = current1.next
-            elif x >= y:
-                new_list.next = current2
-                current2 = current2.next
+    def mergeTwoLists(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        current = ListNode(-1)
+        dummy = current
+        while l1 or l2:
+            if l1 and l2:
+                if l1.val > l2.val:
+                    current.next = ListNode(l2.val)
+                    l2 = l2.next
+                else:
+                    current.next = ListNode(l1.val)
+                    l1 = l1.next
+            elif l1:
+                current.next = ListNode(l1.val)
+                l1 = l1.next
             else:
-                new_list.next = current1
-                current1 = current1.next
-            new_list = new_list.next
-        new_list = dummy
-        return new_list.next
-
+                current.next = ListNode(l2.val)
+                l2 = l2.next
+            current = current.next
+        return dummy.next
+                
 
         
