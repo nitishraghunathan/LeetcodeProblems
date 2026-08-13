@@ -14,8 +14,6 @@ class Solution:
             carry = sum_val//2
             total_sum = sum_val%2
             new_str = str(total_sum) + new_str
-            print(f"This is carry: {carry}")
-            print(f"This is sum: {total_sum}")
         if carry > 0:
             new_str = str(carry) + new_str
         return new_str
