@@ -12,6 +12,3 @@ class Solution:
             result.append([nums[-1]+1, upper])
         return result
 
-
-
-        
