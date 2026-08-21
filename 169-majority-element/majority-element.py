@@ -1,9 +1,10 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         count = 0
-        element = 0
-        for num in nums:
+        tracker = None
+        for element in nums:
             if count == 0:
-                element = num
-            count += -1 if element!=num else 1
-        return element
+                tracker = element
+            count += -1 if element != tracker else 1
+        return tracker
+        
