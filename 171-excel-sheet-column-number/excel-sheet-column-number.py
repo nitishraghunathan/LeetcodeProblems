@@ -1,9 +1,12 @@
 class Solution:
-    def titleToNumber(self, s: str) -> int:
-        result = 0
-        n = len(s)
-        for i in range(n):
-            result = result * 26
-            result += (ord(s[i]) - ord('A') + 1)
-        return result
+    def titleToNumber(self, columnTitle: str) -> int:
+        number = 0
+        """
+        A -> 1
+
+        """
+        for i in range(len(columnTitle)-1, -1, -1):
+            number += 26**(len(columnTitle)-i-1)*(ord(columnTitle[i])-64)
+        return number
+
         
