@@ -1,2 +1,2 @@
-/* Write your T-SQL query statement below */
-SELECT A.email FROM (SELECT email, COUNT(email) AS email_count FROM Person GROUP BY email) AS A WHERE A.email_count>1
+-- Write your PostgreSQL query statement below
+SELECT DISTINCT e.email FROM Person e JOIN Person m ON e.email=m.email WHERE e.id !=m.id
