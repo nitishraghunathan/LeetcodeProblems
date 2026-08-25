@@ -9,7 +9,7 @@ class Solution:
         while current:
             next = current.next
             current.next = prev
-            prev = current
+            prev = current 
             current = next
         return prev
         
