@@ -1,20 +1,22 @@
 class Solution:
     def isStrobogrammatic(self, num: str) -> bool:
         map_dict = {
-            '6': '9',
-            '9': '6',
-            '8': '8',
-            '0': '0',
-            '1': '1',
+            "6" : "9",
+            "8" : "8",
+            "1" : "1",
+            "9" : "6",
+            "0" : "0"
         }
-        nums = str(num)
-        i = 0
-        j= len(nums)-1
-        while i <= j:
-            if nums[j] not in map_dict:
+        if len(num) == 1:
+            if num[0] in map_dict and map_dict[num[0]] == num[0]:
+                return True
+            else:
                 return False
-            if nums[i] != map_dict[nums[j]]:
+        left, right = 0, len(num) - 1
+        while left <= right:
+            if num[left] not in map_dict or map_dict[num[left]] != num[right]:
                 return False
-            i+=1
-            j-=1
+            right -= 1
+            left +=1
         return True
+        
