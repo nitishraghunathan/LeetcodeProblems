@@ -36,4 +36,3 @@ class Solution:
                 return False
         return new_string == word
                 
-        
