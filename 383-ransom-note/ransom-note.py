@@ -4,10 +4,14 @@ class Solution:
         for index, value in enumerate(magazine):
             if value not in map_dict:
                 map_dict[value] = 0
-            map_dict[value] += 1
+            map_dict[value] +=1
         for index, value in enumerate(ransomNote):
-            if value not in map_dict or map_dict[value] == 0:
+            if value not in map_dict:
                 return False
             else:
-                map_dict[value] -= 1
+                map_dict[value] -=1
+                if map_dict[value] == 0:
+                    map_dict.pop(value)
         return True
+
+        
