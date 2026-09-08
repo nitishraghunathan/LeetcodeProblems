@@ -24,7 +24,7 @@ class Solution:
         counter = 0
         for i in range(len(first)):
             if first[i] != second[i]:
-                counter +=1
+                counter += 1
         return counter
 
 
