@@ -7,7 +7,7 @@ class Solution:
                     result = "0" + result 
                 else:
                     result = "1" + result 
-                number = number//2
+                number = number // 2
             return result
 
         def append_num(number, diff):
