@@ -23,7 +23,6 @@ class Solution:
                         break_flag = True
                         break
                     flag_three = True
-            print(f"The word {word} has the flags flag_one: {flag_one}, flag_two: {flag_two}, flag_three: {flag_three}, break_flag: {break_flag}")
             if not break_flag:
                 result.append(word)
         return result
