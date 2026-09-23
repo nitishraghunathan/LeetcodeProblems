@@ -4,15 +4,22 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution(object):
-    def getMinimumDifference(self, root):
-        def fn(node, lo, hi):
-            if not node: return hi - lo
-            left = fn(node.left, lo, node.val)
-            right = fn(node.right, node.val, hi)
-            return min(left, right)
-        return fn(root, float('-inf'), float('inf'))
-
-
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        min_diff = float('inf')
+        result = []
+        def recursion(root:Optional[TreeNode], value:int):
+            nonlocal min_diff
+            if not root:
+                return
+            recursion(root.left, root.val)
+            result.append(root.val)
+            recursion(root.right, root.val)
+        recursion(root, float('inf'))
+        for i in range(1, len(result)):
+            min_diff = min(min_diff, result[i]- result[i-1])
+        return min_diff
+        
+            
 
         
