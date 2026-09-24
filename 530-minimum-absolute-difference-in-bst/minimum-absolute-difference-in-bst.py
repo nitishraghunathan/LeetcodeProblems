@@ -7,19 +7,15 @@
 class Solution:
     def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
         min_diff = float('inf')
-        result = []
-        def recursion(root:Optional[TreeNode], value:int):
-            nonlocal min_diff
+        previous_val = float('inf')
+        def helper(root):
+            nonlocal min_diff, previous_val
             if not root:
                 return
-            recursion(root.left, root.val)
-            result.append(root.val)
-            recursion(root.right, root.val)
-        recursion(root, float('inf'))
-        for i in range(1, len(result)):
-            min_diff = min(min_diff, result[i]- result[i-1])
+            helper(root.left)
+            if min_diff > abs(root.val - previous_val):
+                min_diff = abs(root.val - previous_val)
+            previous_val = root.val
+            helper(root.right)
+        helper(root)
         return min_diff
-        
-            
-
-        
