@@ -4,7 +4,9 @@ class Solution:
         new_result = ""
         for index, string in enumerate(s):
             s[index] = string[::-1]
-            new_result += s[index] + " "
-        return new_result.strip()
+            new_result += s[index]
+            if index != len(s)-1:
+                new_result += " "
+        return new_result
 
             
