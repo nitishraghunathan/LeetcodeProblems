@@ -5,16 +5,16 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    max_value = float('-inf')
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        def diameter_binary_tree(root: Optional[TreeNode]):
+        max_path = float('-inf')
+        def recursion(root):
+            nonlocal max_path
             if not root:
-                return 0
-            left = diameter_binary_tree(root.left)
-            right = diameter_binary_tree(root.right)
-            self.max_value = max(self.max_value, left+right)
-            return max(left,right) + 1
-        diameter_binary_tree(root)
-        return self.max_value
+                return 0, max_path
+            left = recursion(root.left)
+            right = recursion(root.right)
+            max_path = max(max_path, left[0] + right[0])
+            return 1 + max(left[0], right[0]), max_path
+        return recursion(root)[1]
 
         
