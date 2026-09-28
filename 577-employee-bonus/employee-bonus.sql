@@ -1,2 +1,2 @@
-/* Write your T-SQL query statement below */
-SELECT Employee.name, Bonus.bonus FROM Employee FULL JOIN Bonus on Employee.empId=Bonus.empId WHERE Bonus.bonus < 1000 OR Bonus.bonus IS NULL
+-- Write your PostgreSQL query statement below
+SELECT Employee.name, Bonus.bonus FROM Employee FULL JOIN Bonus ON Employee.empId = Bonus.empId WHERE Bonus.bonus < 1000 or Bonus.bonus is NULL ORDER BY Employee.name ASC
