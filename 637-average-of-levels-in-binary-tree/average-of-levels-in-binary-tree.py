@@ -5,19 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+    def averageOfLevels(self, root: TreeNode | None) -> list[float]:
+        result = []
+        if not root:
+            return result
         queue = []
         queue.append(root)
-        average = []
         while queue:
             size = len(queue)
-            total_sum = 0
+            average = 0
             for i in range(size):
                 node = queue.pop(0)
-                total_sum += node.val
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-            average.append(total_sum/size)
-        return average
+                average += node.val
+            result.append(average/size)
+        return result
