@@ -1,19 +1,18 @@
 class Solution:
-    def calPoints(self, operations: List[str]) -> int:
-        """
-        1. Add all operands to the stack 
-        2. Pop elements according the operator or capital character
-        3. Perfrom special operations
-        4. sum all elements in the stack
-        """
-        stack = []
-        for op in operations:
-            if op == '+':
-                stack.append(stack[-1] + stack[-2])
-            elif op == 'C':
-                stack.pop()
-            elif op == 'D':
-                stack.append(stack[-1]*2)
-            else:
-                stack.append(int(op))
-        return sum(stack)
+    def calPoints(self, operations: list[str]) -> int:
+        result = []
+        for operation in operations:
+            match operation:
+                case "+":
+                    a = result[-1] if len(result) > 0 else 0
+                    b = result[-2] if len(result) > 1 else 0
+                    result.append(a+b)
+                case "C":
+                    result.pop()
+                case "D":
+                    a = result[-1]*2 if len(result) > 0 else 0
+                    result.append(a)
+                case _:
+                    result.append(int(operation))
+        return sum(result)
+        
