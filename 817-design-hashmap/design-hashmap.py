@@ -1,28 +1,47 @@
 class MyHashMap:
 
     def __init__(self):
-        self.map = {}
-        
+        self.size = 2039
+        self.map_dict = [Node(-1, -1) for _ in range(self.size)]
 
-    def put(self, key: int, value: int) -> None:
-        if key not in self.map:
-            self.map[key] = 0
-        self.map[key] = value
-        return
+    def put(self, key: int, val: int) -> None:
+        index = key%(self.size)
+        head = self.map_dict[index]
+        while head.next:
+            if head.next.key == key:
+                head.next.val = val
+                return
+            head = head.next
+        head.next = Node(key, val)
 
     def get(self, key: int) -> int:
-        if key not in self.map:
-            return -1
-        return self.map[key]
+        index = key%(self.size)
+        head = self.map_dict[index]
+        while head:
+            if head.key == key:
+                return head.val
+            head = head.next
+        return -1
         
-
     def remove(self, key: int) -> None:
-        if key in self.map:
-            self.map.pop(key)
+        index = key%(self.size)
+        head = self.map_dict[index]
+        while head:
+            if head.next and head.next.key == key:
+                head.next = head.next.next
+                return
+            head = head.next
         return
         
 
-
+class Node:
+    key: int
+    val: int 
+    next: Node 
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val 
+        self.next = None
 # Your MyHashMap object will be instantiated and called as such:
 # obj = MyHashMap()
 # obj.put(key,value)
