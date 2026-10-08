@@ -1,12 +1,14 @@
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
-        def dfs(image, i, j, color, paint):
-            if i < 0 or j < 0 or i > len(image)-1 or j > len(image[i])-1 or image[i][j]==color or image[i][j] != paint:
+        def flood(x, y, color, curr):
+            if x < 0 or  y < 0 or x > len(image) -1 or y >len(image[x])-1 or image[x][y] == color or image[x][y] != curr:
                 return
-            image[i][j] = color 
-            dfs(image, i+1,j,color, paint)
-            dfs(image, i-1,j,color, paint)
-            dfs(image, i,j-1,color, paint)
-            dfs(image, i,j+1,color, paint)
-        dfs(image, sr, sc, color, image[sr][sc])
-        return image
+            image[x][y] = color 
+            flood(x+1,y, color, curr)
+            flood(x-1,y, color, curr)
+            flood(x, y+1, color, curr)
+            flood(x, y-1, color, curr)
+            return
+        flood(sr, sc, color, image[sr][sc])
+        return image  
+        
