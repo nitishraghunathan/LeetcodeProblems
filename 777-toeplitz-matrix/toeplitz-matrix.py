@@ -1,13 +1,12 @@
-class Solution(object):
-    def isToeplitzMatrix(self, matrix):
-        groups = {}
-        for r, row in enumerate(matrix):
-            for c, val in enumerate(row):
-                if r-c not in groups:
-                    groups[r-c] = val
-                elif groups[r-c] != val:
-                    return False
+class Solution:
+    def isToeplitzMatrix(self, matrix: list[list[int]]) -> bool:
+        map_dict = {}
+        for r, rows in enumerate(matrix):
+            for c, cols in enumerate(matrix[r]):
+                if r-c not in map_dict:
+                    map_dict[r-c] = cols
+                else:
+                    if map_dict[r-c] != cols:
+                        return False
         return True
-
-
 
