@@ -1,12 +1,12 @@
 class Solution:
-    def isToeplitzMatrix(self, matrix: list[list[int]]) -> bool:
-        map_dict = {}
-        for r, rows in enumerate(matrix):
-            for c, cols in enumerate(matrix[r]):
-                if r-c not in map_dict:
-                    map_dict[r-c] = cols
-                else:
-                    if map_dict[r-c] != cols:
-                        return False
-        return True
+    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
+        n = len(matrix)
+        m = len(matrix[0])
 
+        for i in range(n-1):
+            for j in range(m-1):
+                if matrix[i][j] != matrix[i+1][j+1]:
+                    return False
+        
+        return True
+        
