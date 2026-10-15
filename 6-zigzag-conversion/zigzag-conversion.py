@@ -1,22 +1,27 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        results = [[] for i in range(numRows)]
-        index= 0
-        flag = True
-        if numRows < 2:
+        if numRows == 1:
             return s
-        for string in s:
-            if flag:
-                results[index].append(string)
-                index +=1
-                if index == numRows:
-                    flag=False
-                    index-=2
+        zig_zag = [[] for i in range(numRows)]
+        counter = 0
+        flag = False
+        
+        for i in s:
+            print(f"counter: {counter}, flag: {flag}, i: {i}")
+            zig_zag[counter] += i
+            if not flag:
+                counter +=1
             else:
-                results[index].append(string)
-                index-=1
-                if index == -1:
-                    flag=True
-                    index+=2
-        return ''.join([''.join(result) for result in results])
+                counter -=1
+            if counter == numRows:
+                flag = True
+                counter-=2
+            if counter == -1:
+                flag = False
+                counter+=2
+        result = ""
+        for i in zig_zag:
+            for j in i:
+                result += j 
+        return result
         
