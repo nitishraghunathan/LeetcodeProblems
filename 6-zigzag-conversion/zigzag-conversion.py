@@ -5,9 +5,7 @@ class Solution:
         zig_zag = [[] for i in range(numRows)]
         counter = 0
         flag = False
-        
         for i in s:
-            print(f"counter: {counter}, flag: {flag}, i: {i}")
             zig_zag[counter] += i
             if not flag:
                 counter +=1
