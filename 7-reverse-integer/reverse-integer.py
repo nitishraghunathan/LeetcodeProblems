@@ -8,7 +8,6 @@ class Solution:
         while x > 0:
             new_str += str(x%10)
             x//=10
-        print(new_str)
         new_int = int(new_str)
         if signed:
             new_int = -new_int
