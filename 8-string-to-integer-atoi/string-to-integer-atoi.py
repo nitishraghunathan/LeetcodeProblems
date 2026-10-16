@@ -9,6 +9,7 @@ class Solution:
             while left < len(s) and  s[left] == 0: 
                 left +=1
             return s[left:]
+            
         def rounding_off(s:int, signed:bool):
             s = s if not signed else -s
             if s > 2**31-1:
