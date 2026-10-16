@@ -1,30 +1,52 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        s = s.lstrip()
-        if not s:
-            return 0
-        if len(s)==1 and not s[0].isdigit():
-            return 0
-        i = 0
-        sign = 1
-        if s[i]=="+":
-            i+=1
-        if s[i]=="-":
-            sign = -1
-            i+=1
-        if i==2:
-            return 0
-        parsed = 0
-        while i<len(s):
-            if not (s[i]).isdigit():
-                break
+        
+        def remove_whitespaces(s:str):
+            return s.strip()
+        
+        def remove_leading_zeros(s:str):
+            left = 0
+            while left < len(s) and  s[left] == 0: 
+                left +=1
+            return s[left:]
+        def rounding_off(s:int, signed:bool):
+            s = s if not signed else -s
+            if s > 2**31-1:
+                return 2**31-1
+            elif s < -2**31:
+                return -2**31
+            return s
+        def retrieve_sign(s:str):
+            left = 0
+            sign = False
+            not_valid = False
+            signed_int = {"+", "-"}
+            while left < len(s) and s[left] in signed_int:
+                if s[left] == '-':
+                    sign = True
+                left +=1
+            if left > 1:
+                not_valid = True
+                return sign, True, s
+            return sign, not_valid, s[left:]
+            
+        s = remove_whitespaces(s)
+        s = remove_leading_zeros(s)
+        signed, not_valid, s = retrieve_sign(s)
+        print(f"This is {s}, signed: {signed}, not_valid: {not_valid}")
+        if not_valid:
+            return 0 
+        accumulated_integer = 0
+        for i in range(0, len(s)):
+            print(f"This is s: {s} and accumulated_integer: {accumulated_integer}")
+            if not s[i].isdigit():
+                return rounding_off(accumulated_integer, signed)
             else:
-                parsed = parsed*10 + int(s[i])
-            i+=1
-        parsed = sign*parsed
-        if parsed>2**31-1:
-            return 2**31-1
-        elif parsed<=-2**31:
-            return -2**31
-        else:
-            return parsed
+                accumulated_integer = 10*accumulated_integer + (ord(s[i]) - ord('0'))
+        return rounding_off(accumulated_integer, signed)
+
+
+
+
+
+        
