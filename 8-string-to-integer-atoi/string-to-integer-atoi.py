@@ -33,12 +33,10 @@ class Solution:
         s = remove_whitespaces(s)
         s = remove_leading_zeros(s)
         signed, not_valid, s = retrieve_sign(s)
-        print(f"This is {s}, signed: {signed}, not_valid: {not_valid}")
         if not_valid:
             return 0 
         accumulated_integer = 0
         for i in range(0, len(s)):
-            print(f"This is s: {s} and accumulated_integer: {accumulated_integer}")
             if not s[i].isdigit():
                 return rounding_off(accumulated_integer, signed)
             else:
