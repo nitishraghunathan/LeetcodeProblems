@@ -29,7 +29,6 @@ class Codec:
         :rtype: TreeNode
         """
         data = data.split(',')
-        print(data)
         def helper(data):
             if not data:
                 return None
