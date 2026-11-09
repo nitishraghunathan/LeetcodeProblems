@@ -13,34 +13,36 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        def serialize_string(root, encoded_str):
+        def helper(root, encoded_str:str):
             if not root:
                 return encoded_str + "null,"
             encoded_str += str(root.val) + ","
-            encoded_str = serialize_string(root.left, encoded_str)
-            encoded_str = serialize_string(root.right, encoded_str)
+            encoded_str = helper(root.left, encoded_str)
+            encoded_str = helper(root.right, encoded_str)
             return encoded_str
-        return serialize_string(root, "")
-        
+        return helper(root, "")
+
     def deserialize(self, data):
         """Decodes your encoded data to tree.
         
         :type data: str
         :rtype: TreeNode
         """
-        result = data.split(",")
-        def decoded_string(result):
-            if result:
-                if result[0] == 'null':
-                    result.pop(0)
-                    return None
-                root = TreeNode(result[0])
-                result.pop(0)
-                root.left = decoded_string(result)
-                root.right = decoded_string(result)
-                return root
+        data = data.split(',')
+        print(data)
+        def helper(data):
+            if not data:
+                return None
+            node = data.pop(0)
+            if node == 'null' :
+                return None
+            root = TreeNode(node)
+            root.left = helper(data)
+            root.right = helper(data)
+            return root
+        return helper(data)
         
-        return decoded_string(result)
+
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
 # deser = Codec()
