@@ -5,13 +5,15 @@ class Solution:
             if value not in map_dict:
                 map_dict[value] = 0
             map_dict[value] +=1
-        odd_flag, odd_count, even_count = False, 0,0
+
+        odd_count, even_count, flag = 0, 0, False
         for key, value in map_dict.items():
-            if value%2==0:
-                even_count +=value
+            if value%2 == 1:
+                if not flag:
+                    flag =True
+                    odd_count+=value
+                else:
+                    odd_count += (value-1)
             else:
-                odd_flag = True
-                odd_count += value-1
-        return even_count if not odd_flag else odd_count+even_count+1
-        
-        
+                even_count+=value
+        return even_count+odd_count
