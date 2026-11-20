@@ -1,37 +1,31 @@
 class MyQueue:
 
     def __init__(self):
-        """
-        1. Create two stacks for the queue
-        2. During push put all elements one stack 
-        3. During pop, pop all elements from the first stack to the other stack
-        4. Return popped element
-        """
-        self.first_stack = []
-        self.second_stack = []
+        self.first = []
+        self.second = []
+        
 
     def push(self, x: int) -> None:
-        self.first_stack.append(x)
+        self.first.append(x)
         
 
     def pop(self) -> int:
-        if self.second_stack:
-            return self.second_stack.pop()
-        while self.first_stack:
-            self.second_stack.append(self.first_stack.pop())
-        return self.second_stack.pop()
+        val = self.peek()
+        if val == -1:
+            return -1
+        return self.second.pop()
+        
+    def peek(self) -> int:
+        if not self.second:
+            while self.first:
+                self.second.append(self.first.pop())
+        if self.second:
+            return self.second[-1]
+        return -1
         
 
-    def peek(self) -> int:
-        if self.second_stack:
-            return self.second_stack[-1]
-        while self.first_stack:
-            self.second_stack.append(self.first_stack.pop())
-        return self.second_stack[-1]
-        
     def empty(self) -> bool:
-        return not self.first_stack and not self.second_stack
-        
+        return not self.first and not self.second
 
 
 # Your MyQueue object will be instantiated and called as such:
