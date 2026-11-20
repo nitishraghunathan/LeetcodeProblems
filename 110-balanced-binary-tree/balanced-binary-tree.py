@@ -5,13 +5,13 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        def helper(root):
+    def isBalanced(self, root: TreeNode | None) -> bool:
+        def balance(root:TreeNode | None) -> tuple:
             if not root:
                 return True, 0
-            left_bal, left_height = helper(root.left)
-            right_bal, right_height = helper(root.right)
-            return (abs(left_height - right_height) < 2) and left_bal and right_bal, 1 + max(left_height, right_height)
-        return helper(root)[0]
-
+            left, lh = balance(root.left)
+            right, rh = balance(root.right)
+            return left and right and abs(lh-rh) <=1, max(lh, rh)+1
+        return balance(root)[0]
+        
         
