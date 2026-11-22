@@ -1,10 +1,11 @@
 class Solution:
     def countBits(self, n: int) -> List[int]:
-        def one_bit_counter(n):
-            counter = 0
-            while n > 0:
-                if n%2 == 1:
-                    counter+=1
-                n = n//2
-            return counter
-        return [one_bit_counter(i) for i in range(n+1)]
+        def number_of_ones(counter):
+            count = 0
+            while counter > 0:
+                count += 1 if counter%2==1 else 0
+                counter = counter//2
+            return count
+        return [number_of_ones(i) for i in range(n+1)]
+
+        
