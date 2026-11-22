@@ -5,16 +5,34 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        """
-        We need to invert left -> right and check the inversion is equal(left maps to right and right maps to left unless they are singular), then we can call it symmetric. 
-        """
-        def symmetric(root1: Optional[TreeNode], root2: Optional[TreeNode])->bool:
-            if not root1 and not root2:
-                return True
-            if not root1 or not root2:
-                return False
-            if root1.val != root2.val:
-                return False
-            return symmetric(root1.left, root2.right) and symmetric(root1.right, root2.left)
-        return symmetric(root.right, root.left)
+    def isSymmetric(self, root: TreeNode | None) -> bool:
+        if not root:
+            return True
+        queue = []
+        queue.append(root)
+        while queue:
+            size = len(queue)
+            result = []
+            for i in range(len(queue)):
+                node = queue.pop(0)
+                if not node:
+                    result.append(float('-inf'))
+                    continue
+                result.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                else:
+                    queue.append(None)
+                if node.right:
+                    queue.append(node.right)
+                else:
+                    queue.append(None)
+            left, right = 0, len(result)-1
+            while left < right:
+                if result[left]!=result[right]:
+                    return False
+                left+=1
+                right-=1
+        return True
+            
+        
