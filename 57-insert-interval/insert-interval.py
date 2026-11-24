@@ -1,18 +1,23 @@
+import heapq
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        i = 0
-        outputs = []
-        while i < len(intervals) and intervals[i][1] < newInterval[0]:
-            outputs.append(intervals[i])
-            i += 1
-        
-        while i < len(intervals) and intervals[i][0] <= newInterval[1]:
-            newInterval = [min(intervals[i][0], newInterval[0]), max(intervals[i][1], newInterval[1])]
-            i += 1
-        outputs.append(newInterval)
+    def insert(self, intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:
+        heapq.heapify(intervals)
+        heapq.heappush(intervals,newInterval)
+        result = []
+        while len(intervals) > 1:
+            first = heapq.heappop(intervals)
+            second = heapq.heappop(intervals)
+            if first[1] >= second[0]:
+                heapq.heappush(intervals,[min(first[0], second[0]), max(first[1], second[1])])
+            else:
+                result.append(first)
+                heapq.heappush(intervals,second)
+        final = heapq.heappop(intervals)
+        if result and result[-1][1] >= final[0]:
+            result[-1][0] = min(final[0], result[-1][0])
+            result[-1][1] = max(final[0], result[-1][1])
+        else:
+            result.append(final)
+        return result
 
-        while i < len(intervals):
-            outputs.append(intervals[i])
-            i += 1
-        
-        return outputs
+
