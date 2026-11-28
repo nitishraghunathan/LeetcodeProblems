@@ -1,32 +1,25 @@
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
-        res = []
-        nums.sort()  # 1. Sort the array first
-        
-        for i in range(len(nums)):
-            # Skip duplicate elements for the first position to avoid duplicate triplets
-            if i > 0 and nums[i] == nums[i - 1]:
-                continue
-            
-            # Use two pointers for the remaining part of the array
-            left, right = i + 1, len(nums) - 1
+        solution_set = []
+        nums = sorted(nums)
+        map_dict = set()
+        for index, value in enumerate(nums):
+            target = -value
+            left,right = index+1, len(nums)-1
             while left < right:
-                current_sum = nums[i] + nums[left] + nums[right]
-                
-                if current_sum < 0:
-                    left += 1  # We need a larger sum, move left pointer right
-                elif current_sum > 0:
-                    right -= 1 # We need a smaller sum, move right pointer left
+                if nums[left] + nums[right] > target:
+                    right -=1
+                elif nums[left] + nums[right] == target:
+                    left_val = nums[left]
+                    right_val = nums[right]
+                    key = tuple([value, left_val,right_val])
+                    if key not in map_dict:
+                        map_dict.add(key)
+                        solution_set.append([value, left_val, right_val])
+                    left +=1
+                    right -=1
                 else:
-                    res.append([nums[i], nums[left], nums[right]])
+                    left+=1
+        return solution_set
                     
-                    # Skip duplicates for the second and third elements
-                    while left < right and nums[left] == nums[left + 1]:
-                        left += 1
-                    while left < right and nums[right] == nums[right - 1]:
-                        right -= 1
-                        
-                    left += 1
-                    right -= 1
-                    
-        return res
+        
