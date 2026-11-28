@@ -1,25 +1,28 @@
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         solution_set = []
-        nums = sorted(nums)
-        map_dict = set()
+        nums.sort()
+
         for index, value in enumerate(nums):
+            if index > 0 and value == nums[index - 1]:
+                continue
+            if value > 0:
+                break
+
             target = -value
-            left,right = index+1, len(nums)-1
+            left, right = index + 1, len(nums) - 1
+
             while left < right:
-                if nums[left] + nums[right] > target:
-                    right -=1
-                elif nums[left] + nums[right] == target:
-                    left_val = nums[left]
-                    right_val = nums[right]
-                    key = tuple([value, left_val,right_val])
-                    if key not in map_dict:
-                        map_dict.add(key)
-                        solution_set.append([value, left_val, right_val])
-                    left +=1
-                    right -=1
+                current_sum = nums[left] + nums[right]
+                if current_sum > target:
+                    right -= 1
+                elif current_sum < target:
+                    left += 1
                 else:
-                    left+=1
+                    solution_set.append([value, nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+
         return solution_set
-                    
-        
