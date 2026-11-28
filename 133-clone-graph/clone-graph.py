@@ -9,22 +9,17 @@ class Node:
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        map_dict = {}
-        visited = set()
-        def clone_graph(node: Optional['Node']):
-            nonlocal map_dict
+        def recursion(node: Optional['Node'], map_dict: dict):
             if not node:
                 return None
-            new_node = None
             if node.val in map_dict:
-                return  map_dict[node.val]
-            else:
-                map_dict[node.val] = Node(node.val)
-                new_node = map_dict[node.val]
-            new_node = map_dict[node.val]
-            for child in node.neighbors:
-                new_node.neighbors.append(clone_graph(child))
+                return map_dict[node.val]
+            new_node = Node(node.val)
+            map_dict[new_node.val] = new_node
+            for neighbor in node.neighbors:
+                new_node.neighbors.append(recursion(neighbor, map_dict))
             return new_node
-        return clone_graph(node) 
+        return recursion(node, {})
+            
                 
         
